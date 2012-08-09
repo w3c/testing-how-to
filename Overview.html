@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head> 
+  <title>Testing How To</title> 
+  <meta charset="utf-8">
+  <meta name="copyright" 
+   content="Copyright &#169; 2012  W3C. This work is distributed under the W3C® Software License." >
+  <meta name="rights" content="see http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231">
+  <link rel="stylesheet" type="text/css" media="screen, projection, print" 
+   href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css"> 
+  <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js"></script> 
+  <style> 
+   @media screen and (min-width: 700px) {
+     div.slide {
+       margin: 5%;
+     }
+   }
+  </style> 
+</head>
+<body>
+<div class="slide cover">
+ <h1 style='margin-top: 15%'>Testing How To</h1> 
+
+ <p><a href='https://github.com/w3c/testing-how-to'>https://github.com/w3c/testing-how-to</a></p>
+</div> 
+
+<div class="slide">
+ <h1>Content</h1>
+ <ol>
+   <li>What do you test in a specification?</li>
+   <li>How to write a test?</li>
+   <li>W3C Test repositories</li>
+   <li>How to add a test suite into the W3C framework?</li>
+   <li>Licenses For W3C Test Suites</li>
+   <li>Strategies for testing a specification</li>
+ </ol>
+</div>
+
+<div class="slide">
+ <h1>What do you test in a specification?</h1>
+
+  <p>[Content]</p>
+</div>
+
+<div class="slide">
+ <h1>How to write a test?</h1>
+
+ <ol type="lower-alpha">
+  <li>testharness.js</li>
+  <li>reftest</li>
+  <li>manual test</li>
+  <li>client-server test</li>
+ </ol>
+</div>
+
+<div class='slide'>
+<h1>testharness.js</h1>
+<p>When the result of your test could be determined by a script.</p>
+<pre style='font-size: larger'>&lt;script
+  src="<a href='http://w3c-test.org/resources/testharness.js'>/resources/testharness.js</a>">
+&lt;/script>
+&lt;script
+  src="<a href='http://w3c-test.org/resources/testharnessreport.js'>/resources/testharnessreport.js</a>">
+&lt;/script></pre>
+
+</div>
+
+<div class='slide'>
+<h1>testharness.js</h1>
+
+<pre>
+&lt;p id="MyE">This test checks the
+  &lt;span>firstElementChild&lt;/span> property.&lt;/p>
+&lt;div <em style='color: green'>id='log'</em>>&lt;/div>
+&lt;script>
+<em style='color: green'>test</em>(
+ function() {
+  var myE = document.getElementById("MyE");
+  <em style='color: green'>assert_true</em>(!!MyE.firstElementChild);
+ },
+ "firstElementChild must exist"
+);
+&lt;/script>
+</pre>
+
+<p>See <a href='http://w3c-test.org/webperf/tests/approved/navigation-timing/html5/test_timing_attributes_exist.html'>Demo</a></p>
+</div>
+
+<div class='slide'>
+<h1>testharness.js: async test</h1>
+
+<pre>
+var t = <em style='color: green'>async_test</em>("firstElementChild must exist");
+
+function run() {
+  t.<em style='color: green'>step</em>(
+    function () {
+      assert_true(!!MyE.firstElementChild);
+    }
+  );
+  t.<em style='color: green'>done</em>();
+};
+window.onload = run;
+</pre>
+
+<p>See <a href='http://w3c-test.org/webapps/WebMessaging/tests/submissions/Microsoft/event.data.htm'>Demo</a> @@find a better example...</p> 
+</div>
+
+<div class='slide'>
+<h1>testharness.js: adding metadata</h1>
+
+  <p>[Content]</p>
+</div>
+
+<div class='slide'>
+<h1>testharness.js: further readings</h1>
+
+<ul>
+<li>Read the <a href='http://w3c-test.org/resources/testharness.js'>documentation in the source</a></li>
+<li><a href='http://darobin.github.com/test-harness-tutorial/docs/using-testharness.html'>testharness.js tutorial</a></li>
+</ul>
+</div>
+
+<div class='slide'>
+<h1>Reftest</h1>
+
+<p>When the result of your test is visual.</p>
+
+<table id='cssFirstLetter'>
+<tr>
+<th>Test</th>
+<th>Reference</th>
+</tr>
+<tr class='lines'>
+<td style='width: 45%'>
+<bdo dir="rtl">HEBREW</bdo>
+</td>
+<td style='width: 45%'>
+<span dir="ltr">WERBEH</span>
+</td>
+</tr>
+<tr>
+<td>
+<pre>
+&lt;bdo dir="rtl">HEBREW&lt;/bdo>
+</pre>
+</td>
+<td>
+<pre>
+&lt;span>WERBEH&lt;/span>
+</pre>
+</td>
+</tr>
+</table>
+
+
+</div>
+
+<div class='slide'>
+<h1>reftest: adding metadata</h1>
+
+  <p>[Content]</p>
+</div>
+
+<div class='slide'>
+<h1>Reftest: further readings</h1>
+
+  <p>[Content]</p>
+</div>
+
+<div class='slide'>
+<h1>Manual test</h1>
+
+<p>When everything else wouldn't work.</p>
+
+<div>
+ <h2>visibilitychange</h2>
+ <p>Iconify this window and restore it.</p>
+ <div id='visibility' style='width: 50px; height: 50px;background-color: red;margin: auto;'></div>
+
+ <p>If the square is still red, please indicate that the test has failed.</p>
+
+<script>
+document.addEventListener("visibilitychange",
+ function() {
+   document.getElementById("visibility").style.backgroundColor = 'green';
+ }, false);
+</script>
+
+<p>See also <a href='http://w3c-test.org/webperf/tests/submission/Microsoft/PageVisibility/test_minimize.htm'>Demo</a></p>
+
+</div>
+
+</div>
+
+<div class="slide">
+ <h1>Client-Server test</h1>
+ <ol>
+  <li>Example of XHR test</li>
+  <li>Example of Web Sockets test</li>
+ </ol>
+</div>
+
+<div class='slide'>
+  <h1>Examples of audio and video test</h1>
+</div>
+
+
+<div class="slide">
+ <h1>W3C Test repositories</li>
+
+ <p>[hg, github]</p>
+</div>
+
+<div class="slide">
+ <h1>How to add a test suite into the W3C framework</li>
+
+ <p>[w3c-test.org]</p>
+</div>
+
+<div class="slide">
+ <h1>Licenses For W3C Test Suites</h1>
+</div>
+
+<div class="slide">
+ <h1>Strategies for testing a specification</h1>
+
+</div>
+
+</body>
+</html>
