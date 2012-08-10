@@ -46,15 +46,15 @@
  <h1>How to write a test?</h1>
 
  <ol type="lower-alpha">
-  <li>testharness.js</li>
-  <li>reftest</li>
-  <li>manual test</li>
-  <li>client-server test</li>
+  <li>Script Test</li>
+  <li>Reftests</li>
+  <li>Self-Describing Test</li>
+  <li>Client-Server Test</li>
  </ol>
 </div>
 
 <div class='slide'>
-<h1>testharness.js</h1>
+<h1>Script Test</h1>
 <p>When the result of your test could be determined by a script.</p>
 <pre style='font-size: larger'>&lt;script
   src="<a href='http://w3c-test.org/resources/testharness.js'>/resources/testharness.js</a>">
@@ -87,6 +87,31 @@
 </div>
 
 <div class='slide'>
+<h1>testharness.js: assertions</h1>
+<p>
+<code>assert_true</code>,
+<code>assert_false</code>,
+<code>assert_equals</code>,
+<code>assert_not_equals</code>,
+<code>assert_approx_equals</code>
+</p>
+<p>
+<code>assert_in_array</code>,
+<code>assert_array_equals</code>,
+<code>assert_regexp_equals</code>
+</p>
+<p>
+<code>assert_own_property</code>,
+<code>assert_inherits</code>,
+<code>assert_idl_attribute</code>,
+<code>assert_readonly</code>,
+<code>assert_throws</code>,
+<code>assert_unreached</code>,
+<code>assert_any</code>
+</p>
+</div>
+
+<div class='slide'>
 <h1>testharness.js: async test</h1>
 
 <pre>
@@ -107,9 +132,35 @@ window.onload = run;
 </div>
 
 <div class='slide'>
-<h1>testharness.js: adding metadata</h1>
+<h1>testharness.js: metadata</h1>
 
-  <p>[Content]</p>
+<p>In the &lt;head> element:
+<pre>
+&lt;link rel="help"
+ href="http://www.w3.org/TR/domcore/#dom-element-firstelementchild"/>
+&lt;meta name="assert"
+ content="The firstElementChild property must exist"/>
+&lt;link rel="author"
+ title="John Doe" href="mailto:john@doe.com"/>
+</pre>
+</div>
+
+<div class='slide'>
+<h1>testharness.js: per-test metadata</h1>
+
+<pre>&lt;script>
+<em style='color: green'>test</em>(
+ function() {
+  var myE = document.getElementById("MyE");
+  <em style='color: green'>assert_true</em>(!!MyE.firstElementChild);
+ },
+ "firstElementChild",
+ {
+  help: 'http://www.w3.org/TR/domcore/#dom-element-firstelementchild', 
+  assert: ['The firstElementChild property must exist'],
+  author: 'John Doe <john@doe.com>' }
+);
+&lt;/script></pre>
 </div>
 
 <div class='slide'>
@@ -118,6 +169,7 @@ window.onload = run;
 <ul>
 <li>Read the <a href='http://w3c-test.org/resources/testharness.js'>documentation in the source</a></li>
 <li><a href='http://darobin.github.com/test-harness-tutorial/docs/using-testharness.html'>testharness.js tutorial</a></li>
+<li><a href='http://wiki.csswg.org/test/scripttest'>Writing Script Tests</a></li>
 </ul>
 </div>
 
@@ -128,8 +180,8 @@ window.onload = run;
 
 <table id='cssFirstLetter'>
 <tr>
-<th>Test</th>
-<th>Reference</th>
+<th>bdo-000.html</th>
+<th>bdo-000-ref.html</th>
 </tr>
 <tr class='lines'>
 <td style='width: 45%'>
@@ -152,20 +204,28 @@ window.onload = run;
 </td>
 </tr>
 </table>
-
-
 </div>
 
 <div class='slide'>
-<h1>reftest: adding metadata</h1>
+<h1>reftest: metadata</h1>
 
-  <p>[Content]</p>
+<p>As for testharness.js, put it in the &lt;head> element:
+<pre>
+&lt;link rel="help"
+ href="http://www.w3.org/TR/domcore/#dom-element-firstelementchild"/>
+&lt;meta name="assert"
+ content="The firstElementChild property must exist"/>
+&lt;link rel="author"
+ title="John Doe" href="mailto:john@doe.com"/>
+</pre>
 </div>
 
 <div class='slide'>
 <h1>Reftest: further readings</h1>
 
-  <p>[Content]</p>
+  <ul>
+   <li><a href='http://wiki.csswg.org/test/reftest'>Writing Reftests</a></li>
+  </ul>
 </div>
 
 <div class='slide'>
@@ -195,14 +255,40 @@ document.addEventListener("visibilitychange",
 
 <div class="slide">
  <h1>Client-Server test</h1>
+
+ <p>When you need server-side code as well</p>
+
+ <p>So far, we have two examples of those:
  <ol>
-  <li>Example of XHR test</li>
-  <li>Example of Web Sockets test</li>
+  <li>XMLHttpRequest</li>
+  <li>The WebSocket API</li>
  </ol>
 </div>
 
+<div class="slide">
+ <h1>XHR test</h1>
+
+ <p>Use <a href='https://dvcs.w3.org/hg/webapps/file/tip/XMLHttpRequest/tests/submissions/Opera/resources'>PHP</a> to simulate server responses:</p>
+
+ <ol>
+   <li><a href="https://dvcs.w3.org/hg/webapps/file/tip/XMLHttpRequest/tests/submissions/Opera/resources/status.php">status.php</a> for content, http code, and media type (see <a href='http://w3c-test.org/webapps/XMLHttpRequest/tests/submissions/Opera/resources/status.php?content=%3Cx%3E%3C/x%3E&type=application/xml'>example</a>)</li>
+   <li><a href="https://dvcs.w3.org/hg/webapps/file/tip/XMLHttpRequest/tests/submissions/Opera/resources/delay.php">delay.php</a> to delay HTTP responses</li>
+   <li>&hellip;</li>
+</ol>
+</div>
+
+<div class="slide">
+ <h1>The WebSocket API</h1>
+
+ <p>[content]</p>
+
+</div>
+
 <div class='slide'>
-  <h1>Examples of audio and video test</h1>
+  <h1>Audio and video materials</h1>
+
+  <p>If you're testing audio or video content, we have content already:</p>
+
 </div>
 
 
