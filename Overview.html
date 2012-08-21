@@ -187,11 +187,12 @@
 <div class="slide">
  <h1>A single assertion often requires multiple test cases</h1>
  <p>
-  There often (or usually) isn’t a one-to-one relationship between a
+  There usually isn’t a one-to-one relationship between a
   testable assertion in a spec and the number of test cases needed to test
-  that assertion adequately. For example, the following statement from the
-  HTML5 spec would require at least four test cases—one for each of the
-  possible values given.
+  that assertion adequately. Instead, each assertion typically requires
+  multiple test cases.
+  For example, the following statement from the HTML5 spec would require at
+  least four test cases—one for each of the possible values given.
  <blockquote>
   <p>
   On setting, if the new value is one of
@@ -202,7 +203,7 @@
   then the attribute’s current value must be set to the new value.
  </blockquote>
  <p>
-  That assertion may in fact actually require even more test cases.
+  That assertion likely in fact would actually need even more test cases.
   Determining how to test it adequately would require reading other parts
   of the spec.
 </div>
