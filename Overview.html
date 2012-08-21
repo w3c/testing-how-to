@@ -40,28 +40,28 @@
  <h1>What do you test in a specification?</h1>
 
  <ol>
-  <li>Look for <i>testable assertions</i> in the spec
-  <li>Some statements are clearly testable assertions
-  <li>Some statements are <i>candidate</i> testable assertions
-  <li>Assertions are often stated within algorithms</h1>
-  <li>A single assertion often requires multiple test cases
-  <li>A single test case may test a combination of statements
+  <li>Look for <i>conformance requirements</i> in the spec
+  <li>Some statements are clearly requirements
+  <li>Some statements are <i>candidate</i> conformance requirements
+  <li>Requirements are often stated within algorithms</h1>
+  <li>A single requirement often requires multiple test cases
+  <li>A single test case may test a combination of requirements
   <li>In short, it’s complicated :-)
  </ol>
 </div>
 
 <div class="slide">
- <h1>Look for <i>testable assertions</i> in the spec</h1>
+ <h1>Look for <i>conformance requirements</i> in the spec</h1>
  <p>
-  In the simplest case, a <b>testable assertion</b> is any single statement
+  In the simplest case, a <b>conformance requirement</b> is any single statement
   that uses RFC 2119 language (<i>MUST</i>, <i>MUST NOT</i>, <i>SHOULD</i>,
-  <i>SHOULD NOT</i>, <i>MAY</i>), to specify a conformance requirement for a
+  <i>SHOULD NOT</i>, <i>MAY</i>), that specifies required behavior for a
   particular conformance class defined elsewhere in the spec (e.g., a Web
-  browser or other user agent). However, some testable assertions may not
+  browser or other user agent). However, some conformance requirements may not
   use RFC 2119 language.
  <p>
   Here’s a paragraph from the HTML5 spec that contains several
-  testable assertions:
+  conformance requirements:
  <blockquote>
   <p>The
    <code>dropEffect</code>
@@ -80,10 +80,10 @@
  </blockquote>
 </div>
 <div class="slide">
- <h1>Some statements are clearly testable assertions</h1>
+ <h1>Some statements are clearly conformance requirements</h1>
  <p>
   Here again is a paragraph from the HTML5 spec that contains
-  several testable assertions:
+  several conformance requirements:
  <blockquote>
   <p>The
    <code>dropEffect</code>
@@ -102,7 +102,7 @@
  </blockquote>
  <p>
   That paragraph contains three statements that use RFC 2119 “must”
-  language and so are clearly testable assertions:
+  language and so are clearly conformance requirements:
   <ol>
    <li><i>On getting, it must return its current value.</i>
    <li><i>On setting, if the new value is one of
@@ -115,10 +115,10 @@
   </ol>
 </div>
 <div class="slide">
- <h1>Some statements are <i>candidate</i> testable assertions</h1>
+ <h1>Some statements are <i>candidate</i> conformance requirements</h1>
  <p>
   Here again is a paragraph from the HTML5 spec that contains
-  several testable assertions:
+  several conformance requirements:
  <blockquote>
   <p>The
    <code>dropEffect</code>
@@ -137,7 +137,7 @@
  </blockquote>
  <p>
   That paragraph contains one statement that may or may not actually be a
-  candidate for testing:
+  requirement that is a candidate for testing:
  <blockquote>
   <p><i>When the <code>DataTransfer</code> object is
   created, the <code>dropEffect</code> attribute is set to a string value.</i>
@@ -152,11 +152,11 @@
  </blockquote>
 </div>
 <div class="slide">
- <h1>Assertions are often stated within algorithms</h1>
+ <h1>Requirements are often stated within algorithms</h1>
  <p>
   Some algorithms is a spec may contain many individual statements that
-  don’t use each use RFC 2119 but that nonetheless state testable
-  assertions. Such algorithms are typically prefaced by a statement that
+  don’t use each use RFC 2119 but that nonetheless state conformance
+  requirements. Such algorithms are typically prefaced by a statement that
   does use RFC 2119 language.
  <p>Here’s an excerpt from an algorithm in the HTML5 spec:
  <blockquote>
@@ -185,11 +185,11 @@
 </div>
 
 <div class="slide">
- <h1>A single assertion often requires multiple test cases</h1>
+ <h1>A single requirement often needs multiple test cases</h1>
  <p>
   There usually isn’t a one-to-one relationship between a
-  testable assertion in a spec and the number of test cases needed to test
-  that assertion adequately. Instead, each assertion typically requires
+  conformance requirement in a spec and the number of test cases needed to test
+  that requirement adequately. Instead, each requirement typically needs
   multiple test cases.
   For example, the following statement from the HTML5 spec would require at
   least four test cases—one for each of the possible values given.
@@ -203,7 +203,7 @@
   then the attribute’s current value must be set to the new value.
  </blockquote>
  <p>
-  That assertion likely in fact would actually need even more test cases.
+  That requirement likely in fact would actually need even more test cases.
   Determining how to test it adequately would require reading other parts
   of the spec.
 </div>
@@ -217,7 +217,7 @@
   algorithm, the entire DOM, etc.) But often it’s not that simple to narrow
   it down that specifically. For example, in the case of testing complex
   algorithms, a single test case may necessarily be testing a combination of
-  assertions from different parts of the algorithm.
+  requirements from different parts of the algorithm.
 </div>
 
 <div class="slide">
@@ -233,7 +233,7 @@
   technologies have “normalized” and improved considerably over the years
   in terms of the degree of rigor and precision and lack of ambiguity with
   which the specs state requirements (for example, using RFC 2119 language
-  consistently to clearly identify assertions), isolating exactly what to
+  consistently to clearly identify requirements), isolating exactly what to
   test and how to test it necessitates first spending a lot of time reading
   the spec.
 </div>
