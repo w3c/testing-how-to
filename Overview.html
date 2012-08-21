@@ -41,10 +41,10 @@
 
  <ol>
   <li>Look for <i>conformance requirements</i> in the spec
-  <li>Some statements are clearly requirements
-  <li>Some statements are <i>candidate</i> conformance requirements
-  <li>Requirements are often stated within algorithms</h1>
-  <li>A single requirement often requires multiple test cases
+  <li>Some statements are unambiguously requirements
+  <li>Some statements are <i>candidate</i> requirements
+  <li>Requirements are often stated within algorithms
+  <li>A single requirement usually requires multiple test
   <li>A single test case may test a combination of requirements
   <li>In short, it’s complicated :-)
  </ol>
@@ -80,7 +80,7 @@
  </blockquote>
 </div>
 <div class="slide">
- <h1>Some statements are clearly conformance requirements</h1>
+ <h1>Some statements are unambiguously requirements</h1>
  <p>
   Here again is a paragraph from the HTML5 spec that contains
   several conformance requirements:
@@ -102,7 +102,7 @@
  </blockquote>
  <p>
   That paragraph contains three statements that use RFC 2119 “must”
-  language and so are clearly conformance requirements:
+  language and so are unambiguously requirements that need testing:
   <ol>
    <li><i>On getting, it must return its current value.</i>
    <li><i>On setting, if the new value is one of
@@ -115,7 +115,7 @@
   </ol>
 </div>
 <div class="slide">
- <h1>Some statements are <i>candidate</i> conformance requirements</h1>
+ <h1>Some statements are <i>candidate</i> requirements</h1>
  <p>
   Here again is a paragraph from the HTML5 spec that contains
   several conformance requirements:
@@ -137,25 +137,25 @@
  </blockquote>
  <p>
   That paragraph contains one statement that may or may not actually be a
-  requirement that is a candidate for testing:
+  requirement that needs testing:
  <blockquote>
   <p><i>When the <code>DataTransfer</code> object is
   created, the <code>dropEffect</code> attribute is set to a string value.</i>
  </blockquote>
   <p>Although that statement does not use RFC 2119 language, it still
-  states something that could be tested. Determining whether or not it
-  <i>should</i> be tested is something that requires reading other parts
-  of the spec. For this particular example, no test is necessary for the
-  statement above, because the actual requirement for setting the 
-  value of the <code>dropEffect</code> when the <code>DataTransfer</code>
-  object is created is defined in another part of the spec.
+  states something that could possibly be tested. Determining whether or
+  not it <i>should</i> be tested is something that requires reading other
+  parts of the spec. For this particular example, no test is necessary for
+  the statement above, because the actual requirement for setting the value
+  of the <code>dropEffect</code> when the <code>DataTransfer</code> object
+  is created is defined in another part of the spec.
  </blockquote>
 </div>
 <div class="slide">
  <h1>Requirements are often stated within algorithms</h1>
  <p>
-  Some algorithms is a spec may contain many individual statements that
-  don’t use each use RFC 2119 but that nonetheless state conformance
+  Some algorithms ii a spec may contain many individual statements or steps
+  that don’t use each use RFC 2119 but that nonetheless state conformance
   requirements. Such algorithms are typically prefaced by a statement that
   does use RFC 2119 language.
  <p>Here’s an excerpt from an algorithm in the HTML5 spec:
@@ -185,13 +185,13 @@
 </div>
 
 <div class="slide">
- <h1>A single requirement often needs multiple test cases</h1>
+ <h1>A single requirement usually needs multiple tests</h1>
  <p>
-  There usually isn’t a one-to-one relationship between a
-  conformance requirement in a spec and the number of test cases needed to test
+  There usually isn’t a one-to-one relationship between a conformance
+  requirement in a spec and the number of test cases needed to test
   that requirement adequately. Instead, each requirement typically needs
   multiple test cases.
-  For example, the following statement from the HTML5 spec would require at
+  For example, the following statement from the HTML5 spec would need at
   least four test cases—one for each of the possible values given.
  <blockquote>
   <p>
@@ -228,14 +228,13 @@
   something that requires a very close reading of the spec and very close
   familiarity with it.
  <p>
-  Different spec editors take different approaches—and
-  though the style and conventions of W3C specs for browser
-  technologies have “normalized” and improved considerably over the years
-  in terms of the degree of rigor and precision and lack of ambiguity with
-  which the specs state requirements (for example, using RFC 2119 language
-  consistently to clearly identify requirements), isolating exactly what to
-  test and how to test it necessitates first spending a lot of time reading
-  the spec.
+  Different spec editors take different approaches—and though the style and
+  conventions of W3C specs for browser technologies have “normalized” and
+  improved considerably over the years in terms of the degree of rigor and
+  precision and lack of ambiguity with which the specs state requirements
+  (for example, using RFC 2119 language consistently to clearly identify
+  requirements), isolating exactly what to test and how to test it
+  necessitates first spending a lot of time reading the spec.
 </div>
 
 <div class="slide">
