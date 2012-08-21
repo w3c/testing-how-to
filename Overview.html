@@ -477,7 +477,7 @@ document.addEventListener("visibilitychange",
 
  <p>We currently have two Web Socket servers running on w3c-test.org:
 
- <ol>
+ <ul>
   <li>A mod_pywebsocket-based server integrated into the main Apache Web
     server, and so listening on ports 80 and 443. (There are not yet any
     test cases that use that instance, but there is an example at
@@ -490,7 +490,7 @@ document.addEventListener("visibilitychange",
     script; for further information, view the source of that script; some
     existing test cases are at
     <a href="http://w3c-test.org/webapps/WebSockets/tests/submissions/Microsoft/">http://w3c-test.org/webapps/WebSockets/tests/submissions/Microsoft/</a>
-  </ol>
+  </ul>
 </div>
 
 <div class='slide'>
@@ -509,9 +509,30 @@ document.addEventListener("visibilitychange",
 
 
 <div class="slide">
- <h1>W3C Test repositories</li>
+ <h1>W3C test-case repositories</h1>
 
- <p>[hg, github]</p>
+ <p>We currently have two shared areas for repositories for storing test cases:
+
+ <ol>
+  <li>A large set of mercurial repos at <a href="http://dvcs.w3.org/">http://dvcs.w3.org/</a>
+  <li>A smaller (currently) set of git repos at <a href="https://github.com/w3c/">https://github.com/w3c/</a>
+ </ol>
+
+ <p>If you don’t have admin access to create new repos in either of those
+  places, contact <a href="mailto:mike@w3.org">Mike Smith &lt;mike@w3.org></a>
+  with the details and he’ll set up the repo for you.
+
+ <p>The repos are all ACL-controlled, so submit (push) new test cases into
+  a particular repo, you either need to added to the list of authorized
+  contributors, or you need to be a member of a working group all of whose
+  members are authorized to push to the repo.
+
+ <p>If you need push access to a particular repo, contact
+  <a href="mailto:mike@w3.org">Mike Smith &lt;mike@w3.org></a>.
+
+ <p>The general protocol for adding new test cases is to place your tests
+  in a subdirectory that has either your company’s name or your personal
+  name, under the top-level <code>submission</code> directory in the repo.
 </div>
 
 <div class="slide">
