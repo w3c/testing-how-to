@@ -456,7 +456,7 @@ document.addEventListener("visibilitychange",
  <p>So far, we have two examples of those:
  <ol>
   <li>XMLHttpRequest</li>
-  <li>The WebSocket API</li>
+  <li>Web Sockets</li>
  </ol>
 </div>
 
@@ -473,10 +473,24 @@ document.addEventListener("visibilitychange",
 </div>
 
 <div class="slide">
- <h1>The WebSocket API</h1>
+ <h1>Web Sockets</h1>
 
- <p>[content]</p>
+ <p>We currently have two Web Socket servers running on w3c-test.org:
 
+ <ol>
+  <li>A mod_pywebsocket-based server integrated into the main Apache Web
+    server, and so listening on ports 80 and 443. (There are not yet any
+    test cases that use that instance, but there is an example at
+    <a href="http://w3c-test.org/demo/console.html">http://w3c-test.org/demo/console.html</a>;
+    writing test cases that use that instance requires installing
+    additional *_wsh.py handlers on the server.)
+  <li>A simple “echo” server (Jetty-based) listening on ports 8080 and 8081
+    and 8443 (secure); to use this server, your test case needs to include the
+    <a href="http://w3c-test.org/webapps/WebSockets/tests/submissions/Microsoft/websocket.js">http://w3c-test.org/webapps/WebSockets/tests/submissions/Microsoft/websocket.js</a>
+    script; for further information, view the source of that script; some
+    existing test cases are at
+    <a href="http://w3c-test.org/webapps/WebSockets/tests/submissions/Microsoft/">http://w3c-test.org/webapps/WebSockets/tests/submissions/Microsoft/</a>
+  </ol>
 </div>
 
 <div class='slide'>
