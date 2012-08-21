@@ -211,10 +211,13 @@
 <div class="slide">
  <h1>A test case may test a combination of statements</h1>
  <p>
-  While it’s always preferable for a test case to test one thing and only
-  one thing, it’s often not that simple. Especially in the case of testing
-  complex algorithms, a single test case may necessarily be testing
-  multiple statements or assertions.
+  It’s always preferable for a test case to focus as narrowly as
+  possible on isolating a test for one specific case (though that case will
+  almost always have dependencies on other major features: the parsing
+  algorithm, the entire DOM, etc.) But often it’s not that simple to narrow
+  it down that specifically. For example, in the case of testing complex
+  algorithms, a single test case may necessarily be testing a combination of
+  assertions from different parts of the algorithm.
 </div>
 
 <div class="slide">
@@ -232,7 +235,7 @@
   which the specs state requirements (for example, using RFC 2119 language
   consistently to clearly identify assertions), isolating exactly what to
   test and how to test it necessitates first spending a lot of time reading
-  the entire spec.
+  the spec.
 </div>
 
 <div class="slide">
