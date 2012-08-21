@@ -39,7 +39,199 @@
 <div class="slide">
  <h1>What do you test in a specification?</h1>
 
-  <p>[Content]</p>
+ <ol>
+  <li>Look for <i>testable assertions</i> in the spec
+  <li>Some statements are clearly testable assertions
+  <li>Some statements are <i>candidate</i> testable assertions
+  <li>Assertions are often stated within algorithms</h1>
+  <li>A single assertion often requires multiple test cases
+  <li>A single test case may test a combination of statements
+  <li>In short, it’s complicated :-)
+ </ol>
+</div>
+
+<div class="slide">
+ <h1>Look for <i>testable assertions</i> in the spec</h1>
+ <p>
+  In the simplest case, a <b>testable assertion</b> is any single statement
+  that uses RFC 2119 language (<i>MUST</i>, <i>MUST NOT</i>, <i>SHOULD</i>,
+  <i>SHOULD NOT</i>, <i>MAY</i>), to specify a conformance requirement for a
+  particular conformance class defined elsewhere in the spec (e.g., a Web
+  browser or other user agent). However, some testable assertions may not
+  use RFC 2119 language.
+ <p>
+  Here’s a paragraph from the HTML5 spec that contains several
+  testable assertions:
+ <blockquote>
+  <p>The
+   <code>dropEffect</code>
+  attribute controls the drag-and-drop feedback that the user is given
+  during a drag-and-drop operation.
+  When the <code>DataTransfer</code> object is created, the
+  <code>dropEffect</code> attribute is set to a string value.
+  On getting, it must return its current value.
+  On setting, if the new value is one of
+  “<code title="">none</code>”,
+  “<code title="">copy</code>”,
+  “<code title="">link</code>”, or
+  “<code title="">move</code>”, then the attribute’s current value
+  must be set to the new value.
+  Other values must be ignored.</p>
+ </blockquote>
+</div>
+<div class="slide">
+ <h1>Some statements are clearly testable assertions</h1>
+ <p>
+  Here again is a paragraph from the HTML5 spec that contains
+  several testable assertions:
+ <blockquote>
+  <p>The
+   <code>dropEffect</code>
+  attribute controls the drag-and-drop feedback that the user is given
+  during a drag-and-drop operation.
+  When the <code>DataTransfer</code> object is created, the
+  <code>dropEffect</code> attribute is set to a string value.
+  On getting, it must return its current value.
+  On setting, if the new value is one of
+  “<code title="">none</code>”,
+  “<code title="">copy</code>”,
+  “<code title="">link</code>”, or
+  “<code title="">move</code>”, then the attribute’s current value
+  must be set to the new value.
+  Other values must be ignored.</p>
+ </blockquote>
+ <p>
+  That paragraph contains three statements that use RFC 2119 “must”
+  language and so are clearly testable assertions:
+  <ol>
+   <li><i>On getting, it must return its current value.</i>
+   <li><i>On setting, if the new value is one of
+    “<code title="">none</code>”,
+    “<code title="">copy</code>”,
+    “<code title="">link</code>”, or
+    “<code title="">move</code>”, then the attribute’s current value
+    must be set to the new value.</i>
+   <li><i>Other values must be ignored.</i>
+  </ol>
+</div>
+<div class="slide">
+ <h1>Some statements are <i>candidate</i> testable assertions</h1>
+ <p>
+  Here again is a paragraph from the HTML5 spec that contains
+  several testable assertions:
+ <blockquote>
+  <p>The
+   <code>dropEffect</code>
+  attribute controls the drag-and-drop feedback that the user is given
+  during a drag-and-drop operation.
+  When the <code>DataTransfer</code> object is created, the
+  <code>dropEffect</code> attribute is set to a string value.
+  On getting, it must return its current value.
+  On setting, if the new value is one of
+  “<code title="">none</code>”,
+  “<code title="">copy</code>”,
+  “<code title="">link</code>”, or
+  “<code title="">move</code>”, then the attribute’s current value
+  must be set to the new value.
+  Other values must be ignored.</p>
+ </blockquote>
+ <p>
+  That paragraph contains one statement that may or may not actually be a
+  candidate for testing:
+ <blockquote>
+  <p><i>When the <code>DataTransfer</code> object is
+  created, the <code>dropEffect</code> attribute is set to a string value.</i>
+ </blockquote>
+  <p>Although that statement does not use RFC 2119 language, it still
+  states something that could be tested. Determining whether or not it
+  <i>should</i> be tested is something that requires reading other parts
+  of the spec. For this particular example, no test is necessary for the
+  statement above, because the actual requirement for setting the 
+  value of the <code>dropEffect</code> when the <code>DataTransfer</code>
+  object is created is defined in another part of the spec.
+ </blockquote>
+</div>
+<div class="slide">
+ <h1>Assertions are often stated within algorithms</h1>
+ <p>
+  Some algorithms is a spec may contain many individual statements that
+  don’t use each use RFC 2119 but that nonetheless state testable
+  assertions. Such algorithms are typically prefaced by a statement that
+  does use RFC 2119 language.
+ <p>Here’s an excerpt from an algorithm in the HTML5 spec:
+ <blockquote>
+  <p>When a user agent is required to <dfn id="fire-a-dnd-event">fire a DND event</dfn>
+    named <var title="">e</var> at an element, using a particular
+    drag data store, the user agent must run the following
+    steps:</p>
+   <ol>
+
+   <li>
+   <p>Let <var title="">dataTransfer</var> be a newly created
+   <code>DataTransfer</code> object associated with the given
+   drag data store.
+
+   <li>
+   <p>Set the <code>effectAllowed</code>
+   attribute to the drag data store's drag data store allowed effects state.
+
+   <li>
+    <p>Set the <code>dropEffect</code> attribute to
+    "<code>none</code>" if <var>e</var> is <code>dragstart</code>, <code>drag</code>, or <code>dragleave</code>…
+  </ol>
+  </blockquote>
+  <p>Notice that the algorithm is prefaced by a statement saying, “the user
+   agent must run the following steps”.
+</div>
+
+<div class="slide">
+ <h1>A single assertion often requires multiple test cases</h1>
+ <p>
+  There often (or usually) isn’t a one-to-one relationship between a
+  testable assertion in a spec and the number of test cases needed to test
+  that assertion adequately. For example, the following statement from the
+  HTML5 spec would require at least four test cases—one for each of the
+  possible values given.
+ <blockquote>
+  <p>
+  On setting, if the new value is one of
+  “<code title="">none</code>”,
+  “<code title="">copy</code>”,
+  “<code title="">link</code>”, or
+  “<code title="">move</code>”,
+  then the attribute’s current value must be set to the new value.
+ </blockquote>
+ <p>
+  That assertion may in fact actually require even more test cases.
+  Determining how to test it adequately would require reading other parts
+  of the spec.
+</div>
+
+<div class="slide">
+ <h1>A test case may test a combination of statements</h1>
+ <p>
+  While it’s always preferable for a test case to test one thing and only
+  one thing, it’s often not that simple. Especially in the case of testing
+  complex algorithms, a single test case may necessarily be testing
+  multiple statements or assertions.
+</div>
+
+<div class="slide">
+ <h1>In short, it’s complicated :-)</h1>
+ <p>
+  For any particular spec, determining things like which statements in the
+  spec require testing and how many test cases are needed to test them is
+  something that requires a very close reading of the spec and very close
+  familiarity with it.
+ <p>
+  Different spec editors take different approaches—and
+  though the style and conventions of W3C specs for browser
+  technologies have “normalized” and improved considerably over the years
+  in terms of the degree of rigor and precision and lack of ambiguity with
+  which the specs state requirements (for example, using RFC 2119 language
+  consistently to clearly identify assertions), isolating exactly what to
+  test and how to test it necessitates first spending a lot of time reading
+  the entire spec.
 </div>
 
 <div class="slide">
