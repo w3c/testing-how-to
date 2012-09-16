@@ -273,7 +273,7 @@
   var myE = document.getElementById("MyE");
   <em style='color: green'>assert_true</em>(!!MyE.firstElementChild);
  },
- "firstElementChild must exist"
+ "Element.firstElementChild exists"
 );
 &lt;/script>
 </pre>
@@ -310,7 +310,7 @@
 <h1>testharness.js: async test</h1>
 
 <pre>
-var t = <em style='color: green'>async_test</em>("firstElementChild must exist");
+var t = <em style='color: green'>async_test</em>("Element.firstElementChild exists");
 
 function run() {
   t.<em style='color: green'>step</em>(
@@ -331,12 +331,13 @@ window.onload = run;
 
 <p>In the &lt;head> element:
 <pre>
-&lt;link rel="help"
+&lt;<em style='color: green'>title</em>>Element.firstElementChild exists&lt;/title&gt;
+&lt;link rel="<em style='color: green'>help</em>"
  href="http://www.w3.org/TR/domcore/#dom-element-firstelementchild"/>
-&lt;meta name="assert"
+&lt;meta name="<em style='color: green'>assert</em>"
  content="The firstElementChild property must exist"/>
-&lt;link rel="author"
- title="John Doe" href="mailto:john@doe.com"/>
+&lt;link rel="<em style='color: green'>author</em>"
+ title="John Doe" href="mailto:john.doe@example.com"/>
 </pre>
 </div>
 
@@ -344,16 +345,17 @@ window.onload = run;
 <h1>testharness.js: per-test metadata</h1>
 
 <pre>&lt;script>
-<em style='color: green'>test</em>(
- function() {
-  var myE = document.getElementById("MyE");
-  <em style='color: green'>assert_true</em>(!!MyE.firstElementChild);
- },
- "firstElementChild",
- {
-  help: 'http://www.w3.org/TR/domcore/#dom-element-firstelementchild', 
-  assert: ['The firstElementChild property must exist'],
-  author: 'John Doe <john@doe.com>' }
+test(
+  function() {
+    var myE = document.getElementById("MyE");
+    assert_true(!!MyE.firstElementChild);
+  },
+  "Element.firstElementChild exists",
+  {
+    <em style='color: green'>help</em>: 'http://www.w3.org/TR/domcore/#dom-element-firstelementchild', 
+    <em style='color: green'>assert</em>: ['The firstElementChild property must exist'],
+    <em style='color: green'>author</em>: 'John Doe &lt;john.doe@example.com>'
+  }
 );
 &lt;/script></pre>
 </div>
@@ -406,12 +408,15 @@ window.onload = run;
 
 <p>As for testharness.js, put it in the &lt;head> element:
 <pre>
-&lt;link rel="help"
- href="http://www.w3.org/TR/domcore/#dom-element-firstelementchild"/>
-&lt;meta name="assert"
- content="The firstElementChild property must exist"/>
-&lt;link rel="author"
- title="John Doe" href="mailto:john@doe.com"/>
+&lt;<em style='color: green'>title</em>>rtl value on dir attribute on bdo element&lt;/title&gt;
+&lt;link rel="<em style='color: green'>help</em>"
+ href="http://www.w3.org/TR/html5/global-attributes.html#attr-dir-rtl"/>
+&lt;link rel="<em style='color: green'>help</em>"
+ href="http://www.w3.org/TR/html5/the-bdo-element.html#the-bdo-element"/>
+&lt;meta name="<em style='color: green'>assert</em>"
+ content="The dir attribute on bdo element could invert the text direction"/>
+&lt;link rel="<em style='color: green'>author</em>"
+ title="John Doe" href="mailto:john.doe@example.com"/>
 </pre>
 </div>
 
@@ -420,6 +425,7 @@ window.onload = run;
 
   <ul>
    <li><a href='http://wiki.csswg.org/test/reftest'>Writing Reftests</a></li>
+   <li><a href='http://wiki.csswg.org/test/format#template-for-new-tests'>Metadata for Reftests</a></li>
   </ul>
 </div>
 
@@ -535,12 +541,25 @@ document.addEventListener("visibilitychange",
   name, under the top-level <code>submission</code> directory in the repo.
 </div>
 
+
+<div class="slide">
+ <h1>Maintaining a Test suite</h1>
+
+ <ul>
+   <li>How to add a test suite into the W3C framework</li>
+   <li>@@TODO modify a test suite?</li>
+   <li>@@TODO remove a test suite?</li>
+   <li>@@TODO remove test suite results?</li>
+ </ul>
+
+</div>
+
 <div class="slide">
  <h1>How to add a test suite into the W3C framework</h1>
 
  <p>We have a shared system at
    <a href="http://w3c-test.org/framework/">http://w3c-test.org/framework/</a>
-   for running test suites, recording the results, and reporting the results.
+   for running test suites
  <p>Documentation on adding a new test suite to the framework is available at
   <a href="http://w3c-test.org/framework/docs/maintainer/">http://w3c-test.org/framework/docs/maintainer/</a>.
  <p>There are four basic steps to adding a new test suite:
@@ -553,7 +572,17 @@ document.addEventListener("visibilitychange",
   </ol>
 
  <p>Once you’ve completed those steps, anyone will be able to come in and
-  run the actual test cases in their own browsers and submit the results.
+  run the actual test cases in their own browsers.
+</div>
+
+<div class="slide">
+ <h1>Test suite results</h1>
+
+ <ul>
+   <li>Test suite results may be submitted automatically or manually to the W3C framework</li>
+   <li>Results are stored and be accessed on w3c-test.org</li>
+   <li>See also the <a href='http://w3c-test.org/framework/docs/api/'>Test Framework JSON API</a></li>
+ </ul>
 </div>
 
 <div class="slide">
@@ -577,10 +606,12 @@ BSD License</a> for other applications.</li>
    <li>If you're a participant of the Working Group, you already
    agreed to the requirements, so no special action is required in
    order to contribute.</li>
-   <li>otherwise,
-use <a href="http://www.w3.org/2002/09/wbs/1/testgrants-200409/">Grant&#xA0;I</a>
-or <a href="http://www.w3.org/2002/09/wbs/1/testgrants2-200409/">Grant&#xA0;II</a>
-to agree with the requirements.</li>
+   <li>otherwise, as a non-participant, use one of the following agreements:
+     <ul>
+       <li><a href="http://www.w3.org/2002/09/wbs/1/testgrants-200409/">Grant&#xA0;I</a> for contributed test cases published <strong>as part of</strong> a W3C Recommendation</li>
+       <li><a href="http://www.w3.org/2002/09/wbs/1/testgrants2-200409/">Grant&#xA0;II</a> for contributed test cases published <strong>outside</strong> a W3C Recommendation</li>
+     </ul>
+   </li>
  </ol>
 
 </div>
@@ -588,7 +619,7 @@ to agree with the requirements.</li>
 <div class="slide">
  <h1>Strategies for testing a specification</h1>
 
- <p>[content to come]</p>
+ <p>@@Guidelines for spec authors?</p>
 
 </div>
 
