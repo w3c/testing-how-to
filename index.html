@@ -264,18 +264,20 @@
 <h1>testharness.js</h1>
 
 <pre>
-&lt;p id="MyE">This test checks the
-  &lt;span>firstElementChild&lt;/span> property.&lt;/p>
+&lt;head>
+&lt;title>Document.title exists&lt;/title>
+&lt;/head>
+&lt;body>
 &lt;div <em style='color: green'>id='log'</em>>&lt;/div>
 &lt;script>
 <em style='color: green'>test</em>(
  function() {
-  var myE = document.getElementById("MyE");
-  <em style='color: green'>assert_true</em>(!!MyE.firstElementChild);
+  <em style='color: green'>assert_equals</em>(document.title, "Document.title exists");
  },
- "Element.firstElementChild exists"
+ "Document.title exists"
 );
 &lt;/script>
+&lt;/body>
 </pre>
 
 <p>See <a href='http://w3c-test.org/webperf/tests/approved/navigation-timing/html5/test_timing_attributes_exist.html'>Demo</a></p>
@@ -322,17 +324,16 @@
 <h1>testharness.js: async test</h1>
 
 <pre>
-var t = <em style='color: green'>async_test</em>("load event is fired");
+var t = <em style='color: green'>async_test</em>("Load event fires");
 
-function run() {
+window.onload = function(e) {
   t.<em style='color: green'>step</em>(
     function () {
-      assert_true("load event has been fired");
+      assert_equals(e.type, "load");
     }
   );
   t.<em style='color: green'>done</em>();
 };
-window.onload = run;
 </pre>
 
 <p>See <a href='http://w3c-test.org/webapps/WebMessaging/tests/submissions/Microsoft/event.data.htm'>Demo</a> @@find a better example...</p> 
@@ -343,11 +344,11 @@ window.onload = run;
 
 <p>In the &lt;head> element:
 <pre>
-&lt;<em style='color: green'>title</em>>Element.firstElementChild exists&lt;/title&gt;
+&lt;<em style='color: green'>title</em>>title exists&lt;/title&gt;
 &lt;link rel="<em style='color: green'>help</em>"
- href="http://www.w3.org/TR/domcore/#dom-element-firstelementchild"/>
+ href="http://www.w3.org/TR/html5/dom.html#document.title"/>
 &lt;meta name="<em style='color: green'>assert</em>"
- content="The firstElementChild property must exist"/>
+ content="Document.title exists"/>
 &lt;link rel="<em style='color: green'>author</em>"
  title="John Doe" href="mailto:john.doe@example.com"/>
 </pre>
