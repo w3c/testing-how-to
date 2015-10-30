@@ -1,28 +1,28 @@
 <!DOCTYPE html>
-<html lang="en"> 
-<head> 
-  <title>W3C Testing How To</title> 
+<html lang="en">
+<head>
+  <title>W3C Testing How To</title>
   <meta charset="utf-8">
-  <meta name="copyright" 
-   content="Copyright &#169; 2012  W3C. This work is distributed under the W3C® Software License." >
+  <meta name="copyright"
+   content="Copyright &#169; 2015  W3C. This work is distributed under the W3C® Software License." >
   <meta name="rights" content="see http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231">
-  <link rel="stylesheet" type="text/css" media="screen, projection, print" 
-   href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css"> 
-  <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js"></script> 
-  <style> 
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css">
+  <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js"></script>
+  <style>
    @media screen and (min-width: 700px) {
      div.slide {
        margin: 5%;
      }
    }
-  </style> 
+  </style>
 </head>
 <body>
 <div class="slide cover">
- <h1 style='margin-top: 15%'>W3C Testing How To</h1> 
+ <h1 style='margin-top: 15%'>W3C Testing How To</h1>
 
  <p><a href='https://github.com/w3c/testing-how-to'>https://github.com/w3c/testing-how-to</a></p>
-</div> 
+</div>
 
 <div class="slide">
  <h1>Content</h1>
@@ -238,7 +238,31 @@
 </div>
 
 <div class="slide">
+<div style='text-align: center'>
+        <p><img style='width: 80%' src="http://testthewebforward.org/assets/dinos.png" alt="Test the Web Forward mascots: dinosaurs." class="img-responsive block-center"></p>
+        <h1 style='text-align: center'><a href='http://testthewebforward.org/'>Test the Web Forward</a></h1>
+        <p style='text-align: center'>W3C's one stop shop for Open Web Platform testing.</p>
+      </div>
+</div>
+
+<div class="slide">
+ <h1>Why follow Test the Web Forward?</h1>
+
+<ol>
+  <li>They know how to test the Web</li>
+  <li>They want the Web to work, no exceptions</li>
+  <li>A growing number of browser vendors are running the TTWF tests</li>
+  <li>They have a lot of test infrastructure ready to use</li>
+  <li>Your lifespan is too short to reinvent it</li>
+  <li>They have happy and cool dinosaurs on their landing page</li>
+</ol>
+
+</div>
+
+<div class="slide">
  <h1>How to write a test?</h1>
+
+  <p>Start with <a href="http://testthewebforward.org/docs/">Documentation</a></p>
 
  <ol type="lower-alpha">
   <li>Script Test</li>
@@ -247,6 +271,9 @@
   <li>WebIDL Test</li>
   <li>Client-Server Test</li>
  </ol>
+ <p>
+   See <a href='http://testthewebforward.org/docs/test-style-guidelines.html'>Key Aspects of a Well Designed Test</a>.
+ </p>
 </div>
 
 <div class='slide'>
@@ -281,7 +308,7 @@
 &lt;/body>
 </pre>
 
-<p>See <a href='http://w3c-test.org/webperf/tests/approved/navigation-timing/html5/test_timing_attributes_exist.html'>Demo</a></p>
+<p>See <a href='http://w3c-test.org/navigation-timing/test_timing_attributes_exist.html'>Demo</a></p>
 </div>
 
 <div class='slide'>
@@ -316,7 +343,9 @@
 <ul>
   <li>callback functions: <code>requestAnimationFrame(callback)</code>, <code>getCurrentPosition(successCallback)</code>, etc.</li>
   <li>event handlers: <code>addEventListener("&hellip;", listener)</code></li>
-  <li>@@anything else?</li>
+  <li>Promises</li>
+  <li>Observers</li>
+  <li>etc.</li>
 </ul>
 
 </div>
@@ -337,7 +366,7 @@ window.onload = function(e) {
 };
 </pre>
 
-<p>See <a href='http://w3c-test.org/webapps/WebMessaging/tests/submissions/Microsoft/event.data.htm'>Demo</a> @@find a better example...</p> 
+<p>See <a href='http://w3c-test.org/WebMessaging/event.data.htm'>Demo</a> @@find a better example...</p>
 </div>
 
 <div class='slide'>
@@ -366,7 +395,7 @@ test(
   },
   "Element.firstElementChild exists",
   {
-    <em style='color: green'>help</em>: 'http://www.w3.org/TR/domcore/#dom-element-firstelementchild', 
+    <em style='color: green'>help</em>: 'http://www.w3.org/TR/domcore/#dom-element-firstelementchild',
     <em style='color: green'>assert</em>: ['The firstElementChild property must exist'],
     <em style='color: green'>author</em>: 'John Doe &lt;john.doe@example.com>'
   }
@@ -375,24 +404,11 @@ test(
 </div>
 
 <div class='slide'>
-<h1>testharness.js: common pitfalls</h1>
 
 <ul>
-  <li>Avoid optional tests: a test file must always return the same
-  total of test results, ie all tests must always be ran within the
-  same file</li>
-  <li>@@TODO others?</li>
-</ul>
-
-</div>
-
-<div class='slide'>
-<h1>testharness.js: further readings</h1>
-
-<ul>
-<li>Read the <a href='http://w3c-test.org/resources/testharness.js'>documentation in the source</a></li>
-<li><a href='http://darobin.github.com/test-harness-tutorial/docs/using-testharness.html'>testharness.js tutorial</a></li>
-<li><a href='http://wiki.csswg.org/test/scripttest'>Writing Script Tests</a></li>
+<li>Start with <a href='http://testthewebforward.org/docs/testharness-tutorial.html'>testharness.js tutorial</a></li>
+<li>Read the <a href='http://w3c-test.org/resources/docs/api.md'>documentation</a></li>
+<li>See <a href="http://testthewebforward.org/docs/test-style-guidelines.html#tests-to-avoid">tests to avoid</a></li>
 </ul>
 </div>
 
@@ -450,15 +466,14 @@ test(
 <h1>Reftest: further readings</h1>
 
   <ul>
-   <li><a href='http://wiki.csswg.org/test/reftest'>Writing Reftests</a></li>
-   <li><a href='http://wiki.csswg.org/test/format#template-for-new-tests'>Metadata for Reftests</a></li>
+   <li><a href='http://testthewebforward.org/docs/reftests.html'>Writing Reftests</a></li>
   </ul>
 </div>
 
 <div class='slide'>
-<h1>Manual test</h1>
+<h1>Manual test :(</h1>
 
-<p>When everything else wouldn't work.</p>
+<p>When everything else wouldn't work</p>
 
 <div>
  <h2>visibilitychange</h2>
@@ -474,7 +489,7 @@ document.addEventListener("visibilitychange",
  }, false);
 </script>
 
-<p>See also <a href='http://w3c-test.org/webperf/tests/submission/Microsoft/PageVisibility/test_minimize.htm'>Demo</a></p>
+<p>See also <a href='http://w3c-test.org/page-visibility/test_minimize-manual.html'>Demo</a></p>
 
 </div>
 
@@ -483,7 +498,7 @@ document.addEventListener("visibilitychange",
 <div class="slide">
  <h1>WebIDL test</h1>
 
-<p>Test your WebIDL interfaces!</p>
+<p>Test your Web IDL interfaces!</p>
 <pre style='font-size: larger'>&lt;script
   src="<a href='http://w3c-test.org/resources/testharness.js'>/resources/testharness.js</a>">
 &lt;/script>
@@ -501,7 +516,7 @@ document.addEventListener("visibilitychange",
 <pre style='font-size: larger'>&lt;pre id='idl'>
 partial interface Document {
   readonly attribute boolean hidden;
-  readonly attribute DOMString visibilityState; 
+  readonly attribute DOMString visibilityState;
 };&lt;/pre>
 &lt;script>
 var idl = new IdlArray();
@@ -516,44 +531,14 @@ idl.test();
 
  <p>When you need server-side code as well</p>
 
- <p>So far, we have two examples of those:
+ <p>We have a few examples:
  <ol>
   <li>XMLHttpRequest</li>
   <li>Web Sockets</li>
  </ol>
-</div>
-
-<div class="slide">
- <h1>XHR test</h1>
-
- <p>Use <a href='https://dvcs.w3.org/hg/webapps/file/tip/XMLHttpRequest/tests/submissions/Opera/resources'>PHP</a> to simulate server responses:</p>
-
- <ol>
-   <li><a href="https://dvcs.w3.org/hg/webapps/file/tip/XMLHttpRequest/tests/submissions/Opera/resources/status.php">status.php</a> for content, http code, and media type (see <a href='http://w3c-test.org/webapps/XMLHttpRequest/tests/submissions/Opera/resources/status.php?content=%3Cx%3E%3C/x%3E&type=application/xml'>example</a>)</li>
-   <li><a href="https://dvcs.w3.org/hg/webapps/file/tip/XMLHttpRequest/tests/submissions/Opera/resources/delay.php">delay.php</a> to delay HTTP responses</li>
-   <li>&hellip;</li>
-</ol>
-</div>
-
-<div class="slide">
- <h1>Web Sockets</h1>
-
- <p>We currently have two Web Socket servers running on w3c-test.org:
-
- <ul>
-  <li>A mod_pywebsocket-based server integrated into the main Apache Web
-    server, and so listening on ports 80 and 443. (There are not yet any
-    test cases that use that instance, but there is an example at
-    <a href="http://w3c-test.org/demo/console.html">http://w3c-test.org/demo/console.html</a>;
-    writing test cases that use that instance requires installing
-    additional *_wsh.py handlers on the server.)
-  <li>A simple “echo” server (Jetty-based) listening on ports 8080 and 8081
-    and 8443 (secure); to use this server, your test case needs to include the
-    <a href="http://w3c-test.org/webapps/WebSockets/tests/submissions/Microsoft/websocket.js">http://w3c-test.org/webapps/WebSockets/tests/submissions/Microsoft/websocket.js</a>
-    script; for further information, view the source of that script; some
-    existing test cases are at
-    <a href="http://w3c-test.org/webapps/WebSockets/tests/submissions/Microsoft/">http://w3c-test.org/webapps/WebSockets/tests/submissions/Microsoft/</a>
-  </ul>
+  <p>
+    See <a href="http://wptserve.readthedocs.org/en/latest/">Web Platform Test Server</a>
+  </p>
 </div>
 
 <div class='slide'>
@@ -568,77 +553,16 @@ idl.test();
     <li><a href='http://media.w3.org/2011/01/'>2011/01</a>: sounds, timed videos</li>
     <li><a href='http://media.w3.org/2011/09/video'>2011/09</a>: videos with multi audio tracks</li>
   </ol>
-  <p>Checkout <code><a href='http://www.w3c-test.org/html/tests/approved/common/media.js'>media.js</a></code> for ways to make your test codec agnostic.</p>
-</div>
-
-<div class="slide">
- <h1>W3C test-case repositories</h1>
-
- <p>We currently have two shared areas for repositories for storing test cases:
-
- <ol>
-  <li>A large set of mercurial repos at <a href="http://dvcs.w3.org/">http://dvcs.w3.org/</a>
-  <li>A smaller (currently) set of git repos at <a href="https://github.com/w3c/">https://github.com/w3c/</a>
- </ol>
-
- <p>If you don’t have admin access to create new repos in either of those
-  places, contact <a href="mailto:mike@w3.org">Mike Smith &lt;mike@w3.org></a>
-  with the details and he’ll set up the repo for you.
-
- <p>The repos are all ACL-controlled, so submit (push) new test cases into
-  a particular repo, you either need to added to the list of authorized
-  contributors, or you need to be a member of a working group all of whose
-  members are authorized to push to the repo.
-
- <p>If you need push access to a particular repo, contact
-  <a href="mailto:mike@w3.org">Mike Smith &lt;mike@w3.org></a>.
-
- <p>The general protocol for adding new test cases is to place your tests
-  in a subdirectory that has either your company’s name or your personal
-  name, under the top-level <code>submission</code> directory in the repo.
-</div>
-
-
-<div class="slide">
- <h1>Maintaining a Test suite</h1>
-
- <ul>
-   <li>How to add a test suite into the W3C framework</li>
-   <li>@@TODO modify a test suite?</li>
-   <li>@@TODO remove a test suite?</li>
- </ul>
-
-</div>
-
-<div class="slide">
- <h1>How to add a test suite into the W3C framework</h1>
-
- <p>We have a shared system at
-   <a href="http://w3c-test.org/framework/">http://w3c-test.org/framework/</a>
-   for running test suites
- <p>Documentation on adding a new test suite to the framework is available at
-  <a href="http://w3c-test.org/framework/docs/maintainer/">http://w3c-test.org/framework/docs/maintainer/</a>.
- <p>There are four basic steps to adding a new test suite:
-
-  <ol>
-   <li>Add metadata for the specification the test suite is associated with.
-   <li>Add metadata about the sections/structure of that specification.
-   <li>Add metadata about the overall test suite.
-   <li>Add metadata about all the test cases in that test suite.
-  </ol>
-
- <p>Once you’ve completed those steps, anyone will be able to come in and
-  run the actual test cases in their own browsers.
+  <p>Checkout <code><a href='http://www.w3c-test.org/common/media.js'>media.js</a></code> for ways to make your test codec agnostic.</p>
 </div>
 
 <div class="slide">
  <h1>Test suite results</h1>
 
+<p>Short summary: we have some ideas there but, in the meantime, you MAY do as follows:</p>
  <ul>
-   <li>Test suite results may be submitted automatically or manually to the W3C framework</li>
-   <li>Results are stored and be accessed on w3c-test.org</li>
-   <li>See also the <a href='http://w3c-test.org/framework/docs/api/'>Test Framework JSON API</a></li>
-   <li>@@TODO remove test suite results?</li>
+   <li>Use <a href="https://github.com/w3c/test-results/">w3c/test-results</a></li>
+   <li>Follow the <a href='https://github.com/w3c/test-results/blob/gh-pages/README.md'>instructions</a></li>
  </ul>
 </div>
 
@@ -654,36 +578,27 @@ idl.test();
 BSD License</a> for other applications.</li>
 </ol>
 
-</div>
-
-<div class="slide">
- <h1>Contributions For W3C Test Suites</h1>
-
- <ol>
-   <li>If you're a participant of the Working Group, you already
-   agreed to the requirements, so no special action is required in
-   order to contribute.</li>
-   <li>otherwise, as a non-participant, use one of the following agreements:
-     <ul>
-       <li><a href="http://www.w3.org/2002/09/wbs/1/testgrants-200409/">Grant&#xA0;I</a> for contributed test cases published <strong>as part of</strong> a W3C Recommendation</li>
-       <li><a href="http://www.w3.org/2002/09/wbs/1/testgrants2-200409/">Grant&#xA0;II</a> for contributed test cases published <strong>outside</strong> a W3C Recommendation</li>
-     </ul>
-   </li>
- </ol>
-
+  <p>This is builtin in w3c/web-platform-tests so no action needed on your part.</p>
 </div>
 
 <div class="slide">
  <h1>Strategies for testing a specification</h1>
 
- <p>@@Guidelines for spec authors?</p>
-
+  <ul>
+    <li>Don't wait until the last minute</li>
+    <li>Ideally, no modification to the spec can be made without a test</li>
+    <li>Find a leader who can understand w3c/web-platform-tests</li>
+  </ul>
 </div>
 
 <div class="slide">
  <h1>For more information</h1>
 
- <p>Use <a href='http://lists.w3.org/Archives/Public/public-test-infra/'>public-test-infra@w3.org</a></p>
+  <ul>
+    <li><a href="http://testthewebforward.org/docs/">Test the Web Forward documentation</a></li>
+    <li>Use <a href='http://lists.w3.org/Archives/Public/public-test-infra/'>public-test-infra@w3.org</a></li>
+    <li>Try irc.w3.org on #testing</li>
+  </ul>
 
 </div>
 
