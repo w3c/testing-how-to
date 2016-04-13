@@ -278,7 +278,7 @@
 
 <div class='slide'>
 <h1>Script Test</h1>
-<p>When the result of your test could be determined by a script.</p>
+<p><a href="https://github.com/w3c/testharness.js/blob/master/docs/api.md">testharness.js</a>: When the result of your test could be determined by a script.</p>
 <pre style='font-size: larger'>&lt;script
   src="<a href='http://w3c-test.org/resources/testharness.js'>/resources/testharness.js</a>">
 &lt;/script>
@@ -334,6 +334,7 @@
 <code>assert_unreached</code>,
 <code>assert_any</code>
 </p>
+<p>See the full <a href="https://github.com/w3c/testharness.js/blob/master/docs/api.md#list-of-assertions">list of assertions</a> with their documentation</p>
 </div>
 
 <div class='slide'>
@@ -343,7 +344,6 @@
 <ul>
   <li>callback functions: <code>requestAnimationFrame(callback)</code>, <code>getCurrentPosition(successCallback)</code>, etc.</li>
   <li>event handlers: <code>addEventListener("&hellip;", listener)</code></li>
-  <li>Promises</li>
   <li>Observers</li>
   <li>etc.</li>
 </ul>
@@ -366,18 +366,26 @@ window.onload = function(e) {
 };
 </pre>
 
-<p>See <a href='http://w3c-test.org/webmessaging/event.data.htm'>Demo</a> @@find a better example...</p>
+<p>See also:</p>
+<ul>
+<li><a href='https://github.com/w3c/testharness.js/blob/master/docs/api.md#asynchronous-tests'>Asynchronous Tests documentation</a></li>
+<li><a href="https://github.com/w3c/testharness.js/blob/master/docs/api.md#promise-tests">EventWatcher</a>: DOM events testing handled using Promises</li>
+</ul>
 </div>
 
 <div class='slide'>
-<h1>Worker tests</h1>
-<p>Assertions in a dedicated worker scope can use <a href='http://testthewebforward.org/docs/test-format-guidelines.html#standalone-workers-tests'>standalone workers tests</a></p>
-<p><a href="http://w3c-test.org/hr-time/basic.worker.js">/hr-time/basic.worker.js</a></p>
-<pre>importScripts("/resources/testharness.js");
-test(function() {
-  assert_true(performance.now() > 0);
-}, "WorkerGlobalScope.performance.now() returns a positive number");</pre>
-<p>To be run from <a href="http://w3c-test.org/hr-time/basic.worker">/hr-time/basic.worker</a></p>
+<h1>testharness.js: promise test</h1>
+
+<pre>
+promise_test(function() {
+  return Promise.resolve("foo")
+    .then(function(result) {
+      assert_equals(result, "foo", "foo should return 'foo'");
+    });
+}, "Simple example");
+</pre>
+
+<p>See also <a href='https://github.com/w3c/testharness.js/blob/master/docs/api.md#promise-tests'>Promise Tests documentation</a></p>
 </div>
 
 <div class='slide'>
@@ -417,11 +425,23 @@ test(
 
 -->
 
-<div class='slide'>
+<div class="slide">
+  <h1>testharness.js</h1>
+  <p><a href='https://github.com/w3c/testharness.js/'>testharness.js</a> contains additional functionalities:</p>
+  <ul>
+    <li><a href="https://github.com/w3c/testharness.js/blob/master/docs/api.md#setup">setup</a>: non-trivial test setup that may fail</li>
+    <li><a href="https://github.com/w3c/testharness.js/blob/master/docs/api.md#timeouts-in-tests">Timeouts</a>: last resort if the test can't be reliable in some other way</li>
+    <li><a href="https://github.com/w3c/testharness.js/blob/master/docs/api.md#cleanup">cleanup</a>: avoid persistance beyond the test itself</li>
+    <li><a href="https://github.com/w3c/testharness.js/blob/master/docs/api.md#single-page-tests">Single Page Tests</a>: asynchronous testing with exactly one test</li>
+    <li><a href='https://github.com/w3c/testharness.js/blob/master/docs/api.md#web-workers'>standalone workers tests</a>: for  dedicated workers, shared workers and service workers</li>
+  </ul>
+</div>
 
+<div class='slide'>
+<h1>testharness.js: Further reading</h1>
 <ul>
 <li>Start with <a href='http://testthewebforward.org/docs/testharness-tutorial.html'>testharness.js tutorial</a></li>
-<li>Read the <a href='http://w3c-test.org/resources/docs/api.md'>documentation</a></li>
+<li>Read the <a href='https://github.com/w3c/testharness.js/blob/master/docs/api.md'>documentation</a></li>
 <li>See <a href="http://testthewebforward.org/docs/test-style-guidelines.html#tests-to-avoid">tests to avoid</a></li>
 </ul>
 </div>
@@ -636,7 +656,7 @@ BSD License</a> for other applications.</li>
   <ul>
     <li>Don't wait until the last minute</li>
     <li>Ideally, no modification to the spec can be made without a test</li>
-    <li>Find a leader who can understand w3c/web-platform-tests</li>
+    <li>Find a leader who can understand <a href='https://github.com/w3c/web-platform-tests'>w3c/web-platform-tests</a> and <a href='http://testthewebforward.org/docs/github-101.html'>how to submit tests</a></li>
   </ul>
 </div>
 
