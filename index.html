@@ -370,20 +370,32 @@ window.onload = function(e) {
 </div>
 
 <div class='slide'>
+<h1>Worker tests</h1>
+<p>Assertions in a dedicated worker scope can use <a href='http://testthewebforward.org/docs/test-format-guidelines.html#standalone-workers-tests'>standalone workers tests</a></p>
+<p><a href="http://w3c-test.org/hr-time/basic.worker.js">/hr-time/basic.worker.js</a></p>
+<pre>importScripts("/resources/testharness.js");
+test(function() {
+  assert_true(performance.now() > 0);
+}, "WorkerGlobalScope.performance.now() returns a positive number");</pre>
+<p>To be run from <a href="http://w3c-test.org/hr-time/basic.worker">/hr-time/basic.worker</a></p>
+</div>
+
+<div class='slide'>
 <h1>testharness.js: metadata</h1>
 
 <p>In the &lt;head> element:
 <pre>
 &lt;<em style='color: green'>title</em>>title exists&lt;/title&gt;
-&lt;link rel="<em style='color: green'>help</em>"
+<!--&lt;link rel="<em style='color: green'>help</em>"
  href="http://www.w3.org/TR/html5/dom.html#document.title"/>
 &lt;meta name="<em style='color: green'>assert</em>"
  content="Document.title exists"/>
-&lt;link rel="<em style='color: green'>author</em>"
+-->&lt;link rel="<em style='color: green'>author</em>"
  title="John Doe" href="mailto:john.doe@example.com"/>
 </pre>
 </div>
 
+<!--
 <div class='slide'>
 <h1>testharness.js: per-test metadata</h1>
 
@@ -402,6 +414,8 @@ test(
 );
 &lt;/script></pre>
 </div>
+
+-->
 
 <div class='slide'>
 
@@ -531,14 +545,40 @@ idl.test();
 
  <p>When you need server-side code as well</p>
 
- <p>We have a few examples:
+ <p>We have several examples:
  <ol>
   <li>XMLHttpRequest</li>
   <li>Web Sockets</li>
+  <li>&hellip;</li>
  </ol>
   <p>
-    See <a href="http://wptserve.readthedocs.org/en/latest/">Web Platform Test Server</a>
+    <a href="http://wptserve.readthedocs.org/en/latest/">wptserve</a> to the rescue!
   </p>
+</div>
+
+<div class='slide'>
+<h1>wptserve</h1>
+<p>A <a href='http://wptserve.readthedocs.org/en/latest/introduction.html'>server</a> designed for writing tests for the web platform.</p>
+<ul>
+  <li><a href="http://wptserve.readthedocs.org/en/latest/stash.html">stash</a>: store cross-request state</li>
+  <li><a href="http://wptserve.readthedocs.org/en/latest/pipes.html">pipes</a>: alter parts of the server response</li>
+  <li><a href="http://wptserve.readthedocs.org/en/latest/handlers.html">handlers</a>: functions to control the response depending on the request
+  <ul><li><a href="http://wptserve.readthedocs.org/en/latest/response.html#wptserve.response.ResponseWriter">ResponseWriter</a>: directly write to the output stream</li></ul>
+  </li>
+</ul>
+
+</div>
+
+<div class='slide'>
+<h1>wptserve: built-in pipes</h1>
+
+<ul>
+  <li><a href="http://wptserve.readthedocs.org/en/latest/pipes.html#sub">sub</a>: substitute variables from the server environment, eg <code>{{domains[www]}}</code></li>
+  <li><a href="http://wptserve.readthedocs.org/en/latest/pipes.html#status">status</a>: set the HTTP status of the response</li>
+  <li><a href="http://wptserve.readthedocs.org/en/latest/pipes.html#headers">headers</a>: add or replace http headers in the response</li>
+  <li><a href="http://wptserve.readthedocs.org/en/latest/pipes.html#slice">slice</a>: send only part of a response body</li>
+</ul>
+<pre>example.txt?pipe=slice(10,20)|status(403)</pre>
 </div>
 
 <div class='slide'>
@@ -553,7 +593,16 @@ idl.test();
     <li><a href='http://media.w3.org/2011/01/'>2011/01</a>: sounds, timed videos</li>
     <li><a href='http://media.w3.org/2011/09/video'>2011/09</a>: videos with multi audio tracks</li>
   </ol>
-  <p>Checkout <code><a href='http://www.w3c-test.org/common/media.js'>media.js</a></code> for ways to make your test codec agnostic.</p>
+  <p>Checkout <code><a href='http://www.w3c-test.org/common/media.js'>media.js</a></code> for ways to make your test codec agnostic (@@which needs updating...).</p>
+</div>
+
+<div class="slide">
+ <h1>Test suite results</h1>
+
+  <ul>
+    <li><a href="http://w3c-test.org/tools/runner/index.html">test runner</a>: From Inside a Browser</li>
+    <li><a href="http://wptrunner.readthedocs.org/en/latest/">wptrunner</a>: By Automating the Browser</li>
+  </ul>
 </div>
 
 <div class="slide">
