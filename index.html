@@ -647,7 +647,32 @@ idl.test();
 BSD License</a> for other applications.</li>
 </ol>
 
-  <p>This is builtin in w3c/web-platform-tests so no action needed on your part.</p>
+  <p>This is builtin in <a href='https://github.com/w3c/web-platform-tests/'>w3c/web-platform-tests</a> so no action needed on your part.</p>
+</div>
+
+<div class="slide">
+  <h1>web-platform-tests, aka WPT</h1>
+
+  <ul>
+    <li>It's the <a href='https://github.com/w3c/web-platform-tests/'>GitHub repository</a> for tests</li>
+    <li>Contains repository dependencies (wptserve, wpt-tools, testharness.js, etc.)</li>
+    <li>It has a lint tool for catching common mistakes</li>
+    <li>wpt-stability-bot is there to prevent unstable tests</li> 
+    <li>OWNERS files are there to notify interested individuals of pull requests</li>
+    <li>Pull requests get automatically labelled</li>
+    <li>The reviewer can be anyone other than the original test author</li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>w3c-test.org</h1>
+
+  <ul>
+    <li>master branch is automatically synced to <a href='http://w3c-test.org/'>http://w3c-test.org/</a></li>
+    <li>Pull requests that have been checked are automatically mirrored to <a href='http://w3c-test.org/submissions/'>http://w3c-test.org/submissions/</a></li>
+    <li>If needed, ask on irc to replicate your pull request to w3c-test.org</li>
+    <li>w3c-test.org is unstable and unreliable by design, so don't rely on it to run tests</li>
+  </ul>
 </div>
 
 <div class="slide">
