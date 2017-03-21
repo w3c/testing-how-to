@@ -214,4 +214,4 @@ has an extensive set of methods that can be used to write tests for the features
 * [A Method for Writing Testable Conformance Requirements](https://www.w3.org/TR/test-methodology/)
 * [Writing specifications: Kinds of statements](https://ln.hixie.ch/?start=1140242962&count=1)
 
-<!-- -*- mode: Text; fill-column: 118 -*- vim: set textwidth=118 : -->
+<!-- -*- fill-column: 118 -*- vim: set textwidth=118 : -->
