@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>W3C Testing How To</title>
+  <meta charset="utf-8">
+  <meta name="copyright"
+   content="Copyright &#169; 2015  W3C. This work is distributed under the W3C® Software License." >
+  <meta name="rights" content="see http://www.w3.org/Consortium/Legal/2002/copyright-software-20021231">
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+   href="//www.w3.org/Talks/Tools/Slidy2/styles/slidy.css">
+  <script src="//www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js"></script>
+  <style>
+   @media screen and (min-width: 700px) {
+     div.slide {
+       margin: 5%;
+     }
+   }
+  </style>
+</head>
+<body>
+<div class="slide cover">
+ <h1 style='margin-top: 15%'>W3C Testing How To</h1>
+
+ <p><a href='https://w3c.github.io/testing-how-to/'>https://w3c.github.io/testing-how-to/</a></p>
+</div>
+
+<div class="slide">
+ <h1>Content</h1>
+ <ol>
+   <li>What do you test in a specification?</li>
+   <li>How to write a test?</li>
+   <li>W3C Test repositories</li>
+   <li>How to add a test suite into the W3C framework?</li>
+   <li>Licenses For W3C Test Suites</li>
+   <li>Strategies for testing a specification</li>
+ </ol>
+</div>
+
+<div class="slide">
+ <h1>What do you test in a specification?</h1>
+
+ <ol>
+  <li>Look for <i>conformance requirements</i> in the spec
+  <li>Some statements are unambiguously requirements
+  <li>Some statements are <i>candidate</i> requirements
+  <li>Requirements are often stated within algorithms
+  <li>A single requirement usually requires multiple test
+  <li>A single test case may test a combination of requirements
+  <li>In short, it’s complicated :-)
+ </ol>
+</div>
+
+<div class="slide">
+ <h1>Look for <i>conformance requirements</i> in the spec</h1>
+ <p>
+  In the simplest case, a <b>conformance requirement</b> is any single statement
+  that uses RFC 2119 language (<i>MUST</i>, <i>MUST NOT</i>, <i>SHOULD</i>,
+  <i>SHOULD NOT</i>, <i>MAY</i>), that specifies required behavior for a
+  particular conformance class defined elsewhere in the spec (e.g., a Web
+  browser or other user agent). However, some conformance requirements may not
+  use RFC 2119 language.
+ <p>
+  Here’s a paragraph from the HTML5 spec that contains several
+  conformance requirements:
+ <blockquote>
+  <p>The
+   <code>dropEffect</code>
+  attribute controls the drag-and-drop feedback that the user is given
+  during a drag-and-drop operation.
+  When the <code>DataTransfer</code> object is created, the
+  <code>dropEffect</code> attribute is set to a string value.
+  On getting, it must return its current value.
+  On setting, if the new value is one of
+  “<code title="">none</code>”,
+  “<code title="">copy</code>”,
+  “<code title="">link</code>”, or
+  “<code title="">move</code>”, then the attribute’s current value
+  must be set to the new value.
+  Other values must be ignored.</p>
+ </blockquote>
+</div>
+<div class="slide">
+ <h1>Some statements are unambiguously requirements</h1>
+ <p>
+  Here again is a paragraph from the HTML5 spec that contains
+  several conformance requirements:
+ <blockquote>
+  <p>The
+   <code>dropEffect</code>
+  attribute controls the drag-and-drop feedback that the user is given
+  during a drag-and-drop operation.
+  When the <code>DataTransfer</code> object is created, the
+  <code>dropEffect</code> attribute is set to a string value.
+  On getting, it must return its current value.
+  On setting, if the new value is one of
+  “<code title="">none</code>”,
+  “<code title="">copy</code>”,
+  “<code title="">link</code>”, or
+  “<code title="">move</code>”, then the attribute’s current value
+  must be set to the new value.
+  Other values must be ignored.</p>
+ </blockquote>
+ <p>
+  That paragraph contains three statements that use RFC 2119 “must”
+  language and so are unambiguously requirements that need testing:
+  <ol>
+   <li><i>On getting, it must return its current value.</i>
+   <li><i>On setting, if the new value is one of
+    “<code title="">none</code>”,
+    “<code title="">copy</code>”,
+    “<code title="">link</code>”, or
+    “<code title="">move</code>”, then the attribute’s current value
+    must be set to the new value.</i>
+   <li><i>Other values must be ignored.</i>
+  </ol>
+</div>
+<div class="slide">
+ <h1>Some statements are <i>candidate</i> requirements</h1>
+ <p>
+  Here again is a paragraph from the HTML5 spec that contains
+  several conformance requirements:
+ <blockquote>
+  <p>The
+   <code>dropEffect</code>
+  attribute controls the drag-and-drop feedback that the user is given
+  during a drag-and-drop operation.
+  When the <code>DataTransfer</code> object is created, the
+  <code>dropEffect</code> attribute is set to a string value.
+  On getting, it must return its current value.
+  On setting, if the new value is one of
+  “<code title="">none</code>”,
+  “<code title="">copy</code>”,
+  “<code title="">link</code>”, or
+  “<code title="">move</code>”, then the attribute’s current value
+  must be set to the new value.
+  Other values must be ignored.</p>
+ </blockquote>
+ <p>
+  That paragraph contains one statement that may or may not actually be a
+  requirement that needs testing:
+ <blockquote>
+  <p><i>When the <code>DataTransfer</code> object is
+  created, the <code>dropEffect</code> attribute is set to a string value.</i>
+ </blockquote>
+  <p>Although that statement does not use RFC 2119 language, it still
+  states something that could possibly be tested. Determining whether or
+  not it <i>should</i> be tested is something that requires reading other
+  parts of the spec. For this particular example, no test is necessary for
+  the statement above, because the actual requirement for setting the value
+  of the <code>dropEffect</code> when the <code>DataTransfer</code> object
+  is created is defined in another part of the spec.
+ </blockquote>
+</div>
+<div class="slide">
+ <h1>Requirements are often stated within algorithms</h1>
+ <p>
+  Some algorithms in a spec may contain many individual statements or steps
+  that don’t use each use RFC 2119 but that nonetheless state conformance
+  requirements. Such algorithms are typically prefaced by a statement that
+  does use RFC 2119 language.
+ <p>Here’s an excerpt from an algorithm in the HTML5 spec:
+ <blockquote>
+  <p>When a user agent is required to <dfn id="fire-a-dnd-event">fire a DND event</dfn>
+    named <var title="">e</var> at an element, using a particular
+    drag data store, the user agent must run the following
+    steps:</p>
+   <ol>
+
+   <li>
+   <p>Let <var title="">dataTransfer</var> be a newly created
+   <code>DataTransfer</code> object associated with the given
+   drag data store.
+
+   <li>
+   <p>Set the <code>effectAllowed</code>
+   attribute to the drag data store's drag data store allowed effects state.
+
+   <li>
+    <p>Set the <code>dropEffect</code> attribute to
+    "<code>none</code>" if <var>e</var> is <code>dragstart</code>, <code>drag</code>, or <code>dragleave</code>…
+  </ol>
+  </blockquote>
+  <p>Notice that the algorithm is prefaced by a statement saying, “the user
+   agent must run the following steps”.
+</div>
+
+<div class="slide">
+ <h1>A single requirement usually needs multiple tests</h1>
+ <p>
+  There usually isn’t a one-to-one relationship between a conformance
+  requirement in a spec and the number of test cases needed to test
+  that requirement adequately. Instead, each requirement typically needs
+  multiple test cases.
+  For example, the following statement from the HTML5 spec would need at
+  least four test cases—one for each of the possible values given.
+ <blockquote>
+  <p>
+  On setting, if the new value is one of
+  “<code title="">none</code>”,
+  “<code title="">copy</code>”,
+  “<code title="">link</code>”, or
+  “<code title="">move</code>”,
+  then the attribute’s current value must be set to the new value.
+ </blockquote>
+ <p>
+  That requirement likely in fact would actually need even more test cases.
+  Determining how to test it adequately would require reading other parts
+  of the spec.
+</div>
+
+<div class="slide">
+ <h1>A test case may test a combination of statements</h1>
+ <p>
+  It’s always preferable for a test case to focus as narrowly as
+  possible on isolating a test for one specific case (though that case will
+  almost always have dependencies on other major features: the parsing
+  algorithm, the entire DOM, etc.) But often it’s not that simple to narrow
+  it down that specifically. For example, in the case of testing complex
+  algorithms, a single test case may necessarily be testing a combination of
+  requirements from different parts of the algorithm.
+</div>
+
+<div class="slide">
+ <h1>In short, it’s complicated :-)</h1>
+ <p>
+  For any particular spec, determining things like which statements in the
+  spec require testing and how many test cases are needed to test them is
+  something that requires a very close reading of the spec and very close
+  familiarity with it.
+ <p>
+  Different spec editors take different approaches—and though the style and
+  conventions of W3C specs for browser technologies have “normalized” and
+  improved considerably over the years in terms of the degree of rigor and
+  precision and lack of ambiguity with which the specs state requirements
+  (for example, using RFC 2119 language consistently to clearly identify
+  requirements), isolating exactly what to test and how to test it
+  necessitates first spending a lot of time reading the spec.
+</div>
+
+<div class="slide">
+<div style='text-align: center'>
+        <p><img style='width: 80%' src="http://testthewebforward.org/assets/dinos.png" alt="Test the Web Forward mascots: dinosaurs." class="img-responsive block-center"></p>
+        <h1 style='text-align: center'><a href='http://testthewebforward.org/'>Test the Web Forward</a></h1>
+        <p style='text-align: center'>W3C's one stop shop for Open Web Platform testing.</p>
+      </div>
+</div>
+
+<div class="slide">
+ <h1>Why follow Test the Web Forward?</h1>
+
+<ol>
+  <li>They know how to test the Web</li>
+  <li>They want the Web to work, no exceptions</li>
+  <li>A growing number of browser vendors are running the TTWF tests</li>
+  <li>They have a lot of test infrastructure ready to use</li>
+  <li>Your lifespan is too short to reinvent it</li>
+  <li>They have happy and cool dinosaurs on their landing page</li>
+</ol>
+
+</div>
+
+<div class="slide">
+ <h1>How to write a test?</h1>
+
+  <p>Start with <a href="http://testthewebforward.org/docs/">Documentation</a></p>
+
+ <ol type="lower-alpha">
+  <li>Script Test</li>
+  <li>Reftests</li>
+  <li>Self-Describing Test</li>
+  <li>WebIDL Test</li>
+  <li>Client-Server Test</li>
+ </ol>
+ <p>
+   See <a href='http://testthewebforward.org/docs/test-style-guidelines.html'>Key Aspects of a Well Designed Test</a>.
+ </p>
+</div>
+
+<div class='slide'>
+<h1>Script Test</h1>
+<p><a href="https://github.com/w3c/testharness.js/blob/master/docs/api.md">testharness.js</a>: When the result of your test could be determined by a script.</p>
+<pre style='font-size: larger'>&lt;script
+  src="<a href='http://w3c-test.org/resources/testharness.js'>/resources/testharness.js</a>">
+&lt;/script>
+&lt;script
+  src="<a href='http://w3c-test.org/resources/testharnessreport.js'>/resources/testharnessreport.js</a>">
+&lt;/script></pre>
+
+</div>
+
+<div class='slide'>
+<h1>testharness.js</h1>
+
+<pre>
+&lt;head>
+&lt;title>Document.title exists&lt;/title>
+&lt;/head>
+&lt;body>
+&lt;div <em style='color: green'>id='log'</em>>&lt;/div>
+&lt;script>
+<em style='color: green'>test</em>(
+ function() {
+  <em style='color: green'>assert_equals</em>(document.title, "Document.title exists");
+ },
+ "Document.title exists"
+);
+&lt;/script>
+&lt;/body>
+</pre>
+
+<p>See <a href='http://w3c-test.org/navigation-timing/test_timing_attributes_exist.html'>Demo</a></p>
+</div>
+
+<div class='slide'>
+<h1>testharness.js: assertions</h1>
+<p>
+<code>assert_true</code>,
+<code>assert_false</code>,
+<code>assert_equals</code>,
+<code>assert_not_equals</code>,
+<code>assert_approx_equals</code>
+</p>
+<p>
+<code>assert_in_array</code>,
+<code>assert_array_equals</code>,
+<code>assert_regexp_equals</code>
+</p>
+<p>
+<code>assert_own_property</code>,
+<code>assert_inherits</code>,
+<code>assert_idl_attribute</code>,
+<code>assert_readonly</code>,
+<code>assert_throws</code>,
+<code>assert_unreached</code>,
+<code>assert_any</code>
+</p>
+<p>See the full <a href="https://github.com/w3c/testharness.js/blob/master/docs/api.md#list-of-assertions">list of assertions</a> with their documentation</p>
+</div>
+
+<div class='slide'>
+<h1>asynchronous testing</h1>
+
+<p>Intended for:
+<ul>
+  <li>callback functions: <code>requestAnimationFrame(callback)</code>, <code>getCurrentPosition(successCallback)</code>, etc.</li>
+  <li>event handlers: <code>addEventListener("&hellip;", listener)</code></li>
+  <li>Observers</li>
+  <li>etc.</li>
+</ul>
+
+</div>
+
+<div class='slide'>
+<h1>testharness.js: async test</h1>
+
+<pre>
+var t = <em style='color: green'>async_test</em>("Load event fires");
+
+window.onload = function(e) {
+  t.<em style='color: green'>step</em>(
+    function () {
+      assert_equals(e.type, "load");
+    }
+  );
+  t.<em style='color: green'>done</em>();
+};
+</pre>
+
+<p>See also:</p>
+<ul>
+<li><a href='https://github.com/w3c/testharness.js/blob/master/docs/api.md#asynchronous-tests'>Asynchronous Tests documentation</a></li>
+<li><a href="https://github.com/w3c/testharness.js/blob/master/docs/api.md#promise-tests">EventWatcher</a>: DOM events testing handled using Promises</li>
+</ul>
+</div>
+
+<div class='slide'>
+<h1>testharness.js: promise test</h1>
+
+<pre>
+promise_test(function() {
+  return Promise.resolve("foo")
+    .then(function(result) {
+      assert_equals(result, "foo", "foo should return 'foo'");
+    });
+}, "Simple example");
+</pre>
+
+<p>See also <a href='https://github.com/w3c/testharness.js/blob/master/docs/api.md#promise-tests'>Promise Tests documentation</a></p>
+</div>
+
+<div class='slide'>
+<h1>testharness.js: metadata</h1>
+
+<p>In the &lt;head> element:
+<pre>
+&lt;<em style='color: green'>title</em>>title exists&lt;/title&gt;
+<!--&lt;link rel="<em style='color: green'>help</em>"
+ href="http://www.w3.org/TR/html5/dom.html#document.title"/>
+&lt;meta name="<em style='color: green'>assert</em>"
+ content="Document.title exists"/>
+-->&lt;link rel="<em style='color: green'>author</em>"
+ title="John Doe" href="mailto:john.doe@example.com"/>
+</pre>
+</div>
+
+<!--
+<div class='slide'>
+<h1>testharness.js: per-test metadata</h1>
+
+<pre>&lt;script>
+test(
+  function() {
+    var myE = document.getElementById("MyE");
+    assert_true(!!MyE.firstElementChild);
+  },
+  "Element.firstElementChild exists",
+  {
+    <em style='color: green'>help</em>: 'http://www.w3.org/TR/domcore/#dom-element-firstelementchild',
+    <em style='color: green'>assert</em>: ['The firstElementChild property must exist'],
+    <em style='color: green'>author</em>: 'John Doe &lt;john.doe@example.com>'
+  }
+);
+&lt;/script></pre>
+</div>
+
+-->
+
+<div class="slide">
+  <h1>testharness.js</h1>
+  <p><a href='https://github.com/w3c/testharness.js/'>testharness.js</a> contains additional functionalities:</p>
+  <ul>
+    <li><a href="https://github.com/w3c/testharness.js/blob/master/docs/api.md#setup">setup</a>: non-trivial test setup that may fail</li>
+    <li><a href="https://github.com/w3c/testharness.js/blob/master/docs/api.md#timeouts-in-tests">Timeouts</a>: last resort if the test can't be reliable in some other way</li>
+    <li><a href="https://github.com/w3c/testharness.js/blob/master/docs/api.md#cleanup">cleanup</a>: avoid persistence beyond the test itself</li>
+    <li><a href="https://github.com/w3c/testharness.js/blob/master/docs/api.md#single-page-tests">Single Page Tests</a>: asynchronous testing with exactly one test</li>
+    <li><a href='https://github.com/w3c/testharness.js/blob/master/docs/api.md#web-workers'>standalone workers tests</a>: for  dedicated workers, shared workers and service workers</li>
+  </ul>
+</div>
+
+<div class='slide'>
+<h1>testharness.js: Further reading</h1>
+<ul>
+<li>Start with <a href='http://testthewebforward.org/docs/testharness-tutorial.html'>testharness.js tutorial</a></li>
+<li>Read the <a href='https://github.com/w3c/testharness.js/blob/master/docs/api.md'>documentation</a></li>
+<li>See <a href="http://testthewebforward.org/docs/test-style-guidelines.html#tests-to-avoid">tests to avoid</a></li>
+</ul>
+</div>
+
+<div class='slide'>
+<h1>Reftest</h1>
+
+<p>When the result of your test is visual.</p>
+
+<table id='cssFirstLetter'>
+<tr>
+<th>bdo-000.html</th>
+<th>bdo-000-ref.html</th>
+</tr>
+<tr class='lines'>
+<td style='width: 45%'>
+<bdo dir="rtl">HEBREW</bdo>
+</td>
+<td style='width: 45%'>
+<span dir="ltr">WERBEH</span>
+</td>
+</tr>
+<tr>
+<td>
+<pre>
+&lt;bdo dir="rtl">HEBREW&lt;/bdo>
+</pre>
+</td>
+<td>
+<pre>
+&lt;span>WERBEH&lt;/span>
+</pre>
+</td>
+</tr>
+</table>
+</div>
+
+<div class='slide'>
+<h1>reftest: metadata</h1>
+
+<p>As for testharness.js, put it in the &lt;head> element:
+<pre>
+&lt;<em style='color: green'>title</em>>rtl value on dir attribute on bdo element&lt;/title&gt;
+&lt;link rel="<em style='color: green'>help</em>"
+ href="http://www.w3.org/TR/html5/global-attributes.html#attr-dir-rtl"/>
+&lt;link rel="<em style='color: green'>help</em>"
+ href="http://www.w3.org/TR/html5/the-bdo-element.html#the-bdo-element"/>
+&lt;meta name="<em style='color: green'>assert</em>"
+ content="The dir attribute on bdo element could invert the text direction"/>
+&lt;link rel="<em style='color: green'>author</em>"
+ title="John Doe" href="mailto:john.doe@example.com"/>
+</pre>
+</div>
+
+<div class='slide'>
+<h1>Reftest: further readings</h1>
+
+  <ul>
+   <li><a href='http://testthewebforward.org/docs/reftests.html'>Writing Reftests</a></li>
+  </ul>
+</div>
+
+<div class='slide'>
+<h1>Manual test :(</h1>
+
+<p>When everything else wouldn't work</p>
+
+<div>
+ <h2>visibilitychange</h2>
+ <p>Iconify this window and restore it.</p>
+ <div id='visibility' style='width: 50px; height: 50px;background-color: red;margin: auto;'></div>
+
+ <p>If the square is still red, please indicate that the test has failed.</p>
+
+<script>
+document.addEventListener("visibilitychange",
+ function() {
+   document.getElementById("visibility").style.backgroundColor = 'green';
+ }, false);
+</script>
+
+<p>See also <a href='http://w3c-test.org/page-visibility/test_minimize-manual.html'>Demo</a></p>
+
+</div>
+
+</div>
+
+<div class="slide">
+ <h1>WebIDL test</h1>
+
+<p>Test your Web IDL interfaces!</p>
+<pre style='font-size: larger'>&lt;script
+  src="<a href='http://w3c-test.org/resources/testharness.js'>/resources/testharness.js</a>">
+&lt;/script>
+&lt;script
+  src="<a href='http://w3c-test.org/resources/testharnessreport.js'>/resources/testharnessreport.js</a>">
+&lt;/script>
+&lt;script src="<a href='http://w3c-test.org/resources/WebIDLParser.js'>/resources/WebIDLParser.js</a>">&lt;/script>
+&lt;script src="<a href='http://w3c-test.org/resources/idlharness.js'>/resources/idlharness.js</a>">&lt;/script></pre>
+
+</div>
+
+<div class="slide">
+ <h1>WebIDL test</h1>
+
+<pre style='font-size: larger'>&lt;pre id='idl'>
+partial interface Document {
+  readonly attribute boolean hidden;
+  readonly attribute DOMString visibilityState;
+};&lt;/pre>
+&lt;script>
+var idl = new IdlArray();
+idl.add_idls(document.getElementById("idl").textContent);
+idl.add_objects({Document: ["window.document"]});
+idl.test();
+&lt;/script></pre>
+</div>
+
+<div class="slide">
+ <h1>Client-Server test</h1>
+
+ <p>When you need server-side code as well</p>
+
+ <p>We have several examples:
+ <ol>
+  <li>XMLHttpRequest</li>
+  <li>Web Sockets</li>
+  <li>&hellip;</li>
+ </ol>
+  <p>
+    <a href="http://wptserve.readthedocs.org/en/latest/">wptserve</a> to the rescue!
+  </p>
+</div>
+
+<div class='slide'>
+<h1>wptserve</h1>
+<p>A <a href='http://wptserve.readthedocs.org/en/latest/introduction.html'>server</a> designed for writing tests for the web platform.</p>
+<ul>
+  <li><a href="http://wptserve.readthedocs.org/en/latest/stash.html">stash</a>: store cross-request state</li>
+  <li><a href="http://wptserve.readthedocs.org/en/latest/pipes.html">pipes</a>: alter parts of the server response</li>
+  <li><a href="http://wptserve.readthedocs.org/en/latest/handlers.html">handlers</a>: functions to control the response depending on the request
+  <ul><li><a href="http://wptserve.readthedocs.org/en/latest/response.html#wptserve.response.ResponseWriter">ResponseWriter</a>: directly write to the output stream</li></ul>
+  </li>
+</ul>
+
+</div>
+
+<div class='slide'>
+<h1>wptserve: built-in pipes</h1>
+
+<ul>
+  <li><a href="http://wptserve.readthedocs.org/en/latest/pipes.html#sub">sub</a>: substitute variables from the server environment, eg <code>{{domains[www]}}</code></li>
+  <li><a href="http://wptserve.readthedocs.org/en/latest/pipes.html#status">status</a>: set the HTTP status of the response</li>
+  <li><a href="http://wptserve.readthedocs.org/en/latest/pipes.html#headers">headers</a>: add or replace http headers in the response</li>
+  <li><a href="http://wptserve.readthedocs.org/en/latest/pipes.html#slice">slice</a>: send only part of a response body</li>
+  <li><a href="http://wptserve.readthedocs.io/en/latest/pipes.html#trickle">trickle</a>:  send the body of a response in chunks with delays</li>
+</ul>
+<pre>example.txt?pipe=slice(10,20)|status(403)</pre>
+</div>
+<!--
+<div class='slide'>
+  <h1>Audio and video materials</h1>
+
+  <p>If you're testing audio or video content, we have content already:</p>
+
+  <ol>
+    <li><a href='http://media.w3.org/2010/05/'>2010/05</a>: Open
+    project movies, time ticker sounds, timed videos, single frame
+      videos, etc.</li>
+    <li><a href='http://media.w3.org/2011/01/'>2011/01</a>: sounds, timed videos</li>
+    <li><a href='http://media.w3.org/2011/09/video'>2011/09</a>: videos with multi audio tracks</li>
+  </ol>
+  <p>Checkout <code><a href='http://www.w3c-test.org/common/media.js'>media.js</a></code> for ways to make your test codec agnostic (@@which needs updating...).</p>
+</div>
+-->
+
+<div class="slide">
+ <h1>Running the test suite</h1>
+
+  <ul>
+    <li><a href="http://w3c-test.org/tools/runner/index.html">test runner</a>: From Inside a Browser</li>
+    <li><a href="http://wptrunner.readthedocs.org/en/latest/">wptrunner</a>: By Automating the Browser</li>
+  </ul>
+</div>
+
+<div class="slide">
+ <h1>Test suite results</h1>
+
+<p>Short summary: we have some ideas there but, in the meantime, you MAY do as follows:</p>
+ <ul>
+   <li>Use <a href="https://github.com/w3c/test-results/">w3c/test-results</a></li>
+   <li>Follow the <a href='https://github.com/w3c/test-results/blob/gh-pages/README.md'>instructions</a></li>
+ </ul>
+</div>
+
+<div class="slide">
+ <h1>Licenses For W3C Test Suites</h1>
+
+  <p>W3C makes test suites available under two distinct licenses:
+<ol>
+<li>a <a href="http://www.w3.org/Consortium/Legal/2008/04-testsuite-license.html">W3C Test Suite License</a> for
+    an Authoritative W3C Test Suite or when claims of performance with
+    respect to a specification are required.</li>
+<li>a <a href="http://www.w3.org/Consortium/Legal/2008/03-bsd-license.html">3-clause
+BSD License</a> for other applications.</li>
+</ol>
+
+  <p>This is builtin in <a href='https://github.com/w3c/web-platform-tests/'>w3c/web-platform-tests</a> so no action needed on your part.</p>
+</div>
+
+<div class="slide">
+  <h1>web-platform-tests, aka WPT</h1>
+
+  <ul>
+    <li>It's the <a href='https://github.com/w3c/web-platform-tests/'>GitHub repository</a> for tests</li>
+    <li>Contains repository dependencies (wptserve, wpt-tools, testharness.js, etc.)</li>
+    <li>It has a lint tool for catching common mistakes</li>
+    <li>wpt-stability-bot is there to prevent unstable tests</li> 
+    <li>OWNERS files are there to notify interested individuals of pull requests</li>
+    <li>Pull requests get automatically labelled</li>
+    <li>The reviewer can be anyone other than the original test author</li>
+  </ul>
+</div>
+
+<div class="slide">
+  <h1>w3c-test.org</h1>
+
+  <ul>
+    <li>master branch is automatically synced to <a href='http://w3c-test.org/'>http://w3c-test.org/</a></li>
+    <li>Pull requests that have been checked are automatically mirrored to <a href='http://w3c-test.org/submissions/'>http://w3c-test.org/submissions/</a></li>
+    <li>If needed, ask on irc to replicate your pull request to w3c-test.org</li>
+    <li>w3c-test.org is unstable and unreliable by design, so don't rely on it to run tests</li>
+  </ul>
+</div>
+
+<div class="slide">
+ <h1>Strategies for testing a specification</h1>
+
+  <ul>
+    <li>Don't wait until the last minute</li>
+    <li>Ideally, no modification to the spec can be made without a test</li>
+    <li>Find a leader who can understand <a href='https://github.com/w3c/web-platform-tests'>w3c/web-platform-tests</a> and <a href='http://testthewebforward.org/docs/github-101.html'>how to submit tests</a></li>
+  </ul>
+</div>
+
+<div class="slide">
+ <h1>For more information</h1>
+
+  <ul>
+    <li><a href="http://testthewebforward.org/docs/">Test the Web Forward documentation</a></li>
+    <li>Use <a href='http://lists.w3.org/Archives/Public/public-test-infra/'>public-test-infra@w3.org</a></li>
+    <li>Try irc.w3.org on #testing</li>
+  </ul>
+
+</div>
+
+</body>
+</html>
