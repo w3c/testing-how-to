@@ -165,7 +165,7 @@ has an extensive set of methods that can be used to write tests for the features
 
 ## How should my group go about producing tests for meeting CR exit criteria?
 ### Testing facilitator
-### Test as you commit (pointer event, whatwg, webperf)
+### Test as you commit
 
 ALL normative spec changes are generally expected to have a corresponding pull request in [web-platform-tests](https://github.com/w3c/web-platform-tests), either in the form of new tests or modifications to existing tests, or must include the rationale for why test updates are not required for the proposed update.
 
