@@ -157,6 +157,8 @@ has an extensive set of methods that can be used to write tests for the features
 
 ### Element, attribute, and attribute-value definitions
 
+[to come]
+
 ### CSS property definitions
 [to be contributed by somebody who’s familiar with writing CSS tests/specs; of course should mention reftests]
 
@@ -164,17 +166,20 @@ has an extensive set of methods that can be used to write tests for the features
 [to be contributed by somebody who’s familiar with writing specs and tests for vocabularies]
 
 ## How should my group go about producing tests for meeting CR exit criteria?
-### Testing facilitator
+
+This section provides details about putting logistics into place for producing tests. 
+
+### Test facilitator
+
+For each spec, assign a person to be the “test facilitator” or “test czar” for that spec, and give that person the authority to make decisions, and the responsibility for ensuring the necessary tests are developed.
+
 ### Test as you commit
 
-ALL normative spec changes are generally expected to have a corresponding pull request in [web-platform-tests](https://github.com/w3c/web-platform-tests), either in the form of new tests or modifications to existing tests, or must include the rationale for why test updates are not required for the proposed update.
+All normative spec changes are generally expected to have a corresponding pull request in [web-platform-tests](https://github.com/w3c/web-platform-tests), either in the form of new tests or modifications to existing tests, or must include the rationale for why test updates are not required for the proposed update.
 
 Typically, both pull requests (spec updates and tests) will be merged at the same time. If a pull request for the specification is approved but the other needs more work, add the '[needs tests](https://w3c.github.io/spec-labels.html)' label or, in web-platform-tests, the '[status:needs-spec-decision](https://github.com/w3c/web-platform-tests/issues?utf8=%E2%9C%93&q=label%3Astatus%3Aneeds-spec-decision%20)' label. Note that a test change that contradicts the specification should not be merged before the corresponding specification change.
 
 If testing is not practical due to web-platforms-tests limitations, please explain why and if appropriate file an issue with the '[type:untestable](https://github.com/w3c/web-platform-tests/issues?utf8=%E2%9C%93&q=label%3Atype%3Auntestable%20)' label to follow up later.
-
-### test techniques (how to test, testthewebforward, ...)
-### how to get tests?
 
 [What’s the goal of web-spec testing]:
 #what-is-the-goal-of-web-spec-testing
