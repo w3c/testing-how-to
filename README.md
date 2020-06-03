@@ -179,7 +179,7 @@ All normative spec changes are generally expected to have a corresponding pull r
 
 Typically, both pull requests (spec updates and tests) will be merged at the same time. If a pull request for the specification is approved but the other needs more work, add the '[needs tests](https://w3c.github.io/spec-labels.html)' label or, in web-platform-tests, the '[status:needs-spec-decision](https://github.com/w3c/web-platform-tests/issues?utf8=%E2%9C%93&q=label%3Astatus%3Aneeds-spec-decision%20)' label. Note that a test change that contradicts the specification should not be merged before the corresponding specification change.
 
-If testing is not practical due to web-platforms-tests limitations, please explain why and if appropriate file an issue with the '[type:untestable](https://github.com/w3c/web-platform-tests/issues?utf8=%E2%9C%93&q=label%3Atype%3Auntestable%20)' label to follow up later.
+If testing is not practical due to web-platform-tests limitations, please explain why and if appropriate file an issue with the '[type:untestable](https://github.com/w3c/web-platform-tests/issues?utf8=%E2%9C%93&q=label%3Atype%3Auntestable%20)' label to follow up later.
 
 [What’s the goal of web-spec testing]:
 #what-is-the-goal-of-web-spec-testing
